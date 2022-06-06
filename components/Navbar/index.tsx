@@ -44,9 +44,9 @@ const Navbar = () => {
                         <NavItem isCurrentPage={router.pathname === "/contact"}>
                             <NavLink href={"/contact"}>Contact</NavLink>
                         </NavItem>
-                        <NavItem isCurrentPage={router.pathname === "/security"}>
+                        {/* <NavItem isCurrentPage={router.pathname === "/security"}>
                             <NavLink href={"/security"}>Security</NavLink>
-                        </NavItem>
+                        </NavItem> */}
                         <NavItem isCurrentPage={router.pathname === "/login"}>
                             <NavLink href={"/login"}>
                                 <LoginButton >Login</LoginButton>

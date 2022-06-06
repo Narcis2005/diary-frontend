@@ -3,7 +3,7 @@ import { CardContainer, TitleContainer, CardTitle, ContentContainer, CardContent
 const CardReason = ({title, content, isOdd}: {title: string, content: string, isOdd: boolean}) => {
     return (
         <>
-            <CardContainer isOdd={isOdd}>
+            <CardContainer isOdd={isOdd} data-testid="card-container">
                 <TitleContainer>
                     <CardTitle>{title}</CardTitle>
                 </TitleContainer>

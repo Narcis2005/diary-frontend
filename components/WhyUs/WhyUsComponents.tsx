@@ -6,6 +6,9 @@ export const WhyUsContainer = styled.div`
     flex-direction: column;
     background: rgb(245, 245, 245);
     padding: 4rem 0;
+    @media (min-width: 920px) {
+        align-items: center;
+    }
 `;
 export const TextContainer = styled.div`
     text-align: center;
@@ -19,7 +22,8 @@ export const CardsContainer = styled.div`
     grid-template-columns: 80%;
     justify-content: center;
     @media (min-width: 920px) {
-        grid-template-columns: 37.5% 37.5%;
-        column-gap: 5%;
+        width: 80%;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 2%;
     }
 `;

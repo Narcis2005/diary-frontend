@@ -44,5 +44,6 @@ export const CardContainer = styled.div<ICardContainer>`
     }
     @media (min-width: 920px) {
         text-align: ${({isOdd}) => (isOdd ? "left" : "right")};
+        border-radius: 8px;
     }
 `;

@@ -6,8 +6,36 @@ import ShouldYouWriteADiary from "../components/ShouldYouWriteADiary";
 import WhyUs from "../components/WhyUs";
 import DefaultContainer from "../containers/DefaultContaienr";
 
-
+export interface IReason {
+    title: string;
+    content: string;
+}
 const Home: NextPage = () => {
+    const reasons = [{
+        title: "First reason",
+        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
+    },
+    {
+        title: "Second reason",
+        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
+    },
+    {
+        title: "Third reason",
+        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
+    },
+    {
+        title: "Fourth reason",
+        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
+    },
+    {
+        title: "Fifth reason",
+        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
+    },
+    {
+        title: "Sixth reason",
+        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
+    },
+];
     return (
         <>
             
@@ -18,7 +46,7 @@ const Home: NextPage = () => {
             </Head>
         <DefaultContainer>
             <Hero />
-            <WhyUs />
+            <WhyUs reasons={reasons}/>
             <ShouldYouWriteADiary />
             <AchieveYourGoals />
         </DefaultContainer>

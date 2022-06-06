@@ -11,19 +11,22 @@ export const AchieveYourGoalsContainer = styled.div`
     @media (min-width: 920px) {
         flex-direction: row-reverse;
         justify-content: space-between;
-        padding: 4rem 10%;
+        padding: 2rem 10%;
 
     }
 `;
 export const AchieveYourGoalsTextContainer = styled.div`
-     @media (min-width: 920px) {
-        width: 30%;
+     @media (min-width: 920px) {    
+        width: 35%;
         text-align: right;
     }
 `;
 
 export const AchieveYourGoalsTitleContainer = styled.div`
     padding-bottom: 2rem;
+    @media (min-width: 920px) {
+        padding-bottom: 4rem;
+    }
 `;
 
 export const AchieveYourGoalsTitle = styled.h3`
@@ -40,7 +43,7 @@ export const AchieveYourGoalsContent = styled.p`
 export const AchieveYourGoalsIllustrationContainer = styled.div`
     width: 80%;
 @media (min-width: 920px) {
-    width: 45%;
+    width: 50%;
 
 }
 `;

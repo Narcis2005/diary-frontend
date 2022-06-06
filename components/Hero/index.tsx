@@ -11,11 +11,11 @@ const Hero = () => {
                     </HeadingMessage>
                 </HeadingContainer>
                 <ParagraphContainer>
-                    <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam dolorum earum cupiditate quas corrupti dicta?</Paragraph>
+                    <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quod expedita, ipsam aliquid dolore quibusdam deleniti accusamus aut ex aspernatur.</Paragraph>
 
                 </ParagraphContainer>
                 <StartWritingButtonContainer>
-                    <StartWritingButton>Start writing</StartWritingButton>
+                    <StartWritingButton>Dear diary...</StartWritingButton>
                 </StartWritingButtonContainer>
             </TextContainer>
             <IllustrationContainer>
