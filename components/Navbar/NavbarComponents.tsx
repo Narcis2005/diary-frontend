@@ -5,6 +5,9 @@ import styled from "styled-components";
 export const NavbarContainer = styled.header`
     width: 100%;
     height: 4rem;
+    background: white;
+    z-index: 999;
+    position: relative;
 `;
 export const NavbarInnerContainer = styled.div`
     width: 80%;

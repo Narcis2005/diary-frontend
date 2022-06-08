@@ -9,7 +9,7 @@ export const HeroContainer = styled.div`
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: -1;
+    /* z-index: -1; */
     margin-top: -4rem;
     @media (min-width: 920px) {
         flex-direction: row;
