@@ -7,17 +7,19 @@ import DefaultContainer from "../../containers/DefaultContaienr";
 const About: NextPage = () => {
     return (
         <>
-        <Head>
+            <Head>
                 <title>About - Diary</title>
-                <meta name="description" content="At diary you can write your online personal diary and save it in a secure way." />
+                <meta
+                    name="description"
+                    content="At diary you can write your online personal diary and save it in a secure way."
+                />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <DefaultContainer>
-            <ImageHero />
-            <AboutText />
-        </DefaultContainer>
-                </>
-        
+                <ImageHero />
+                <AboutText />
+            </DefaultContainer>
+        </>
     );
 };
 export default About;

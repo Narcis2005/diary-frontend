@@ -1,4 +1,17 @@
-import { FooterContainer, FooterTextContentContainer, FooterTextContent, FooterLogoContainer, Logo, FooterMenuContainer, FooterMenu, FooterMenuItem, FooterMenuLink, FooterImageContainer, FooterCopyright, FooterMenuTitle } from "./components";
+import {
+    FooterContainer,
+    FooterTextContentContainer,
+    FooterTextContent,
+    FooterLogoContainer,
+    Logo,
+    FooterMenuContainer,
+    FooterMenu,
+    FooterMenuItem,
+    FooterMenuLink,
+    FooterImageContainer,
+    FooterCopyright,
+    FooterMenuTitle,
+} from "./components";
 
 const Footer = () => {
     return (
@@ -7,7 +20,7 @@ const Footer = () => {
                 <FooterTextContentContainer>
                     <FooterTextContent>Lorem ipsum, dolor sit amet consectetur adipisicing elit</FooterTextContent>
                 </FooterTextContentContainer>
-               
+
                 <FooterMenuContainer>
                     <FooterMenuTitle>Menu</FooterMenuTitle>
                     <FooterMenu>
@@ -27,7 +40,7 @@ const Footer = () => {
                 </FooterMenuContainer>
                 <FooterLogoContainer>
                     <FooterImageContainer>
-                         <Logo src="/logo1.svg" height="80" width="160" />
+                        <Logo src="/logo1.svg" height="80" width="160" />
                     </FooterImageContainer>
                     <FooterCopyright>&copy; Chirilov Narcis 2022</FooterCopyright>
                 </FooterLogoContainer>

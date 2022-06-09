@@ -12,11 +12,10 @@ export const AchieveYourGoalsContainer = styled.div`
         flex-direction: row-reverse;
         justify-content: space-between;
         padding: 2rem 10%;
-
     }
 `;
 export const AchieveYourGoalsTextContainer = styled.div`
-     @media (min-width: 920px) {    
+    @media (min-width: 920px) {
         width: 35%;
         text-align: right;
     }
@@ -32,9 +31,7 @@ export const AchieveYourGoalsTitleContainer = styled.div`
 export const AchieveYourGoalsTitle = styled.h3`
     font-size: 2.5rem;
 `;
-export const AchieveYourGoalsContentContainer = styled.div`
-
-`;
+export const AchieveYourGoalsContentContainer = styled.div``;
 export const AchieveYourGoalsContent = styled.p`
     opacity: 0.8;
     line-height: 1.8rem;
@@ -42,14 +39,11 @@ export const AchieveYourGoalsContent = styled.p`
 
 export const AchieveYourGoalsIllustrationContainer = styled.div`
     width: 80%;
-@media (min-width: 920px) {
-    width: 50%;
-
-}
+    @media (min-width: 920px) {
+        width: 50%;
+    }
 `;
 export const AchieveYourGoalsImageContainer = styled.div`
     width: 100%;
 `;
-export const AchieveYourGoalsIllustration = styled(Image)`
-
-`;
+export const AchieveYourGoalsIllustration = styled(Image)``;

@@ -1,27 +1,40 @@
-import { HeroContainer, TextContainer, HeadingContainer, HeadingMessage, ParagraphContainer, Paragraph, StartWritingButtonContainer, StartWritingButton, IllustrationContainer, IllustrationImage } from "./components";
+import {
+    HeroContainer,
+    TextContainer,
+    HeadingContainer,
+    HeadingMessage,
+    ParagraphContainer,
+    Paragraph,
+    StartWritingButtonContainer,
+    StartWritingButton,
+    IllustrationContainer,
+    IllustrationImage,
+} from "./components";
 
 const Hero = () => {
     return (
         <>
-        <HeroContainer>
-            <TextContainer>
-                <HeadingContainer>
-                    <HeadingMessage>
-                        Your private <br /> diary
-                    </HeadingMessage>
-                </HeadingContainer>
-                <ParagraphContainer>
-                    <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quod expedita, ipsam aliquid dolore quibusdam deleniti accusamus aut ex aspernatur.</Paragraph>
-
-                </ParagraphContainer>
-                <StartWritingButtonContainer>
-                    <StartWritingButton>Dear diary...</StartWritingButton>
-                </StartWritingButtonContainer>
-            </TextContainer>
-            <IllustrationContainer>
-                <IllustrationImage src="/diaryIllustration.svg" height= "500" width="500" layout="responsive"/>
-            </IllustrationContainer>
-        </HeroContainer>
+            <HeroContainer>
+                <TextContainer>
+                    <HeadingContainer>
+                        <HeadingMessage>
+                            Your private <br /> diary
+                        </HeadingMessage>
+                    </HeadingContainer>
+                    <ParagraphContainer>
+                        <Paragraph>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quod expedita, ipsam aliquid
+                            dolore quibusdam deleniti accusamus aut ex aspernatur.
+                        </Paragraph>
+                    </ParagraphContainer>
+                    <StartWritingButtonContainer>
+                        <StartWritingButton>Dear diary...</StartWritingButton>
+                    </StartWritingButtonContainer>
+                </TextContainer>
+                <IllustrationContainer>
+                    <IllustrationImage src="/diaryIllustration.svg" height="500" width="500" layout="responsive" />
+                </IllustrationContainer>
+            </HeroContainer>
         </>
     );
 };

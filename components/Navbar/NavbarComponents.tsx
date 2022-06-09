@@ -26,9 +26,7 @@ export const LogoContainer = styled.div`
 export const ImageContainer = styled.div`
     height: 60%;
 `;
-export const Logo = styled(Image)`
-    
-`;
+export const Logo = styled(Image)``;
 interface IMobileIconLine {
     isOpen: boolean;
 }
@@ -49,35 +47,33 @@ export const MobileIconLine = styled.div<IMobileIconLine>`
     width: 30px;
     height: 3px;
     border-radius: 2px;
-    background-color: ${({isOpen}) => (isOpen ? "transparent" : "black")};
-    transform: ${({isOpen}) => (isOpen ? "translateX(-35px)" : "")};
-    transition: all .5s ease-in-out;
-    &::after, &::before {
+    background-color: ${({ isOpen }) => (isOpen ? "transparent" : "black")};
+    transform: ${({ isOpen }) => (isOpen ? "translateX(-35px)" : "")};
+    transition: all 0.5s ease-in-out;
+    &::after,
+    &::before {
         content: "";
         position: absolute;
         width: 25px;
         height: 3px;
         border-radius: 2px;
         background-color: black;
-    transition: all .5s ease-in-out;
-
+        transition: all 0.5s ease-in-out;
     }
-    &::after{
-        transform:${({isOpen}) => (isOpen ? "rotate(-45deg) translate(25px, 25px)" : "translateY(-8px)")};
-
+    &::after {
+        transform: ${({ isOpen }) => (isOpen ? "rotate(-45deg) translate(25px, 25px)" : "translateY(-8px)")};
     }
-    &::before{
-        transform:${({isOpen}) => (isOpen ? "rotate(45deg) translate(25px, -25px)" : "translateY(8px)")};
-
+    &::before {
+        transform: ${({ isOpen }) => (isOpen ? "rotate(45deg) translate(25px, -25px)" : "translateY(8px)")};
     }
 `;
 export const Nav = styled.nav<IMobileIconLine>`
     position: fixed;
-    left: ${({isOpen}) => (isOpen ? "0px" : "-100%")};
+    left: ${({ isOpen }) => (isOpen ? "0px" : "-100%")};
     width: 65vw;
     min-height: 100vh;
     background-color: rgb(245, 245, 245);
-    transition: all .5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     top: 0;
     display: flex;
     justify-content: center;
@@ -90,7 +86,6 @@ export const Nav = styled.nav<IMobileIconLine>`
         min-height: auto;
         width: auto;
         height: 30px;
-
     }
 `;
 export const NavLinks = styled.ul`
@@ -101,14 +96,13 @@ export const NavLinks = styled.ul`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding:  0;
-    margin:  0;
+    padding: 0;
+    margin: 0;
     @media (min-width: 920px) {
         flex-direction: row;
         min-height: auto;
         max-height: auto;
         height: 40px;
-        
     }
 `;
 interface INavItem {
@@ -117,9 +111,9 @@ interface INavItem {
 export const NavItem = styled.li<INavItem>`
     display: block;
     height: 20px;
-    opacity:${({isCurrentPage}) => (isCurrentPage ? "1" : "0.8")};
+    opacity: ${({ isCurrentPage }) => (isCurrentPage ? "1" : "0.8")};
     font-size: 1.235rem;
-    &:hover{
+    &:hover {
         opacity: 1;
     }
     @media (min-width: 920px) {
@@ -128,12 +122,9 @@ export const NavItem = styled.li<INavItem>`
         height: 30px;
         display: flex;
         align-items: center;
-
     }
 `;
-export const NavLink = styled(Link)`
-
-`;
+export const NavLink = styled(Link)``;
 export const LoginButton = styled.button`
     width: 100px;
     border-radius: 20px;

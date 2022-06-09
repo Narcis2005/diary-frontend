@@ -16,7 +16,6 @@ export const TitleContainer = styled.div`
 `;
 export const ShouldYouWriteADiaryTitle = styled.h2`
     font-size: 2.5rem;
-
 `;
 export const ShouldYouWriteADiaryContentContainer = styled.div`
     line-height: 1.8rem;

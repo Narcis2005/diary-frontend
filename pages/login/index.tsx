@@ -6,11 +6,11 @@ import DefaultContainer from "../../containers/DefaultContaienr";
 const Login: NextPage = () => {
     return (
         <>
-        <DefaultContainer>
-            <BackgroundImage>
-                <LoginComponent />
-            </BackgroundImage>
-        </DefaultContainer>
+            <DefaultContainer>
+                <BackgroundImage>
+                    <LoginComponent />
+                </BackgroundImage>
+            </DefaultContainer>
         </>
     );
 };

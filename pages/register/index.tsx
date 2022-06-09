@@ -5,11 +5,11 @@ import DefaultContainer from "../../containers/DefaultContaienr";
 const Register = () => {
     return (
         <>
-        <DefaultContainer>
-            <BackgroundImage>
-                <RegisterComponent />
-            </BackgroundImage>
-        </DefaultContainer>
+            <DefaultContainer>
+                <BackgroundImage>
+                    <RegisterComponent />
+                </BackgroundImage>
+            </DefaultContainer>
         </>
     );
 };

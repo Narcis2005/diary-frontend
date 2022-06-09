@@ -57,7 +57,6 @@ export const ContactForm = styled.form`
     justify-content: center;
     align-items: center;
     width: 100%;
-
 `;
 export const ContactLabelInputContainer = styled(LabelinputContainer)`
     padding: 1% 0;
@@ -72,7 +71,7 @@ export const ContactTextarea = styled.textarea`
     padding: 0 5px;
     font-size: 16px;
     border-radius: 5px;
-    border: 1px solid rgb(35,35,35);
+    border: 1px solid rgb(35, 35, 35);
 `;
 export const ContactButton = styled(Button)`
     align-self: flex-start;

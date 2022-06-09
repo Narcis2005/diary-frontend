@@ -11,45 +11,48 @@ export interface IReason {
     content: string;
 }
 const Home: NextPage = () => {
-    const reasons = [{
-        title: "First reason",
-        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
-    },
-    {
-        title: "Second reason",
-        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
-    },
-    {
-        title: "Third reason",
-        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
-    },
-    {
-        title: "Fourth reason",
-        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
-    },
-    {
-        title: "Fifth reason",
-        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
-    },
-    {
-        title: "Sixth reason",
-        content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef"
-    },
-];
+    const reasons = [
+        {
+            title: "First reason",
+            content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef",
+        },
+        {
+            title: "Second reason",
+            content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef",
+        },
+        {
+            title: "Third reason",
+            content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef",
+        },
+        {
+            title: "Fourth reason",
+            content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef",
+        },
+        {
+            title: "Fifth reason",
+            content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef",
+        },
+        {
+            title: "Sixth reason",
+            content: "Lorem ipsum dolor fudfsaf dafuasd acv dsafdsa fg aaefef ewef",
+        },
+    ];
     return (
         <>
-            
             <Head>
                 <title>Diary - A safe place</title>
-                <meta name="description" content="At diary you can write your online personal diary and save it in a secure way." />
+                <meta
+                    name="description"
+                    content="At diary you can write your online personal diary and save it in a secure way."
+                />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-        <DefaultContainer>
-            <Hero />
-            <WhyUs reasons={reasons}/>
-            <ShouldYouWriteADiary />
-            <AchieveYourGoals />
-        </DefaultContainer>
+            <DefaultContainer>
+                <Hero />
+                <WhyUs reasons={reasons} />
+                <ShouldYouWriteADiary />
+                <AchieveYourGoals />
+            </DefaultContainer>
         </>
     );
 };

@@ -12,7 +12,7 @@ export const WhyUsContainer = styled.div`
 `;
 export const TextContainer = styled.div`
     text-align: center;
-    padding-bottom: 3rem ;
+    padding-bottom: 3rem;
 `;
 export const TitleWhyUs = styled.h2`
     font-size: 2.5rem;

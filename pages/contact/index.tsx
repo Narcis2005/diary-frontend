@@ -4,9 +4,9 @@ import DefaultContainer from "../../containers/DefaultContaienr";
 const Contact = () => {
     return (
         <>
-        <DefaultContainer>
-            <ContactComponent />
-        </DefaultContainer>
+            <DefaultContainer>
+                <ContactComponent />
+            </DefaultContainer>
         </>
     );
 };

@@ -15,14 +15,13 @@ export const HeroContainer = styled.div`
         flex-direction: row;
         justify-content: space-between;
         padding: 0 10%;
-
     }
 `;
 export const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding:  10%;
+    padding: 10%;
     @media (min-width: 920px) {
         width: 35%;
         padding: 0;
@@ -59,8 +58,8 @@ export const StartWritingButton = styled.button`
     cursor: pointer;
     font-size: 1.235rem;
     opacity: 0.8;
-    &:hover{
-        opacity:1;
+    &:hover {
+        opacity: 1;
     }
 `;
 export const IllustrationContainer = styled.div`
@@ -69,6 +68,4 @@ export const IllustrationContainer = styled.div`
         width: 50%;
     }
 `;
-export const IllustrationImage = styled(Image)`
-
-`;
+export const IllustrationImage = styled(Image)``;

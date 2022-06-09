@@ -18,7 +18,6 @@ export const Title = styled.h2`
 export const ContentContainer = styled.div`
     line-height: 1.8rem;
     text-align: center;
-
 `;
 export const Content = styled.p`
     opacity: 0.8;
