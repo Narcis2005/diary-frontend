@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
     HeroContainer,
     TextContainer,
@@ -28,7 +29,10 @@ const Hero = () => {
                         </Paragraph>
                     </ParagraphContainer>
                     <StartWritingButtonContainer>
+                        <Link href="/journal" passHref>
                         <StartWritingButton>Dear diary...</StartWritingButton>
+
+                        </Link>
                     </StartWritingButtonContainer>
                 </TextContainer>
                 <IllustrationContainer>

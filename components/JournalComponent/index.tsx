@@ -1,4 +1,6 @@
-import { JournalContainer, Page, PageContainer } from "./JournalComponents";
+import {  JournalContainer, PagesContainer, SidebarContainer } from "./JournalComponents";
+import PageComponent from "./PageComponent";
+import SmallIndicativePage from "./SmallIndicativePage";
 
 interface IJournalComponent {
     content: string;
@@ -22,17 +24,30 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
         return{ content: formatStringsInSubstringsWithNWords(content.content, 25),
         date: content.date};
     });
+    let pageNumber = 1;
     return (
         <>
             <JournalContainer>
+            <SidebarContainer>
+                <form>
+            {formatedContent.map((data) => {
+                    return data.content.map((content,index) => (
+                            <SmallIndicativePage pageNumber={pageNumber++} key={index}/>
+
+                        )
+                    );
+                })}
+                </form>
+                </SidebarContainer>
+                <PagesContainer>
                 {formatedContent.map((data) => {
                     return data.content.map((content,index) => (
-                        <PageContainer key={index}>
-                          <Page value={content} > </Page>
-                        </PageContainer>
+
+                        <PageComponent key={index} content={content} date={data.date}/>
                     )
                     );
                 })}
+                </PagesContainer>
             </JournalContainer>
         </>
     );

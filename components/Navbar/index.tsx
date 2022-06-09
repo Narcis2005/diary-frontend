@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -43,7 +44,10 @@ const Navbar = () => {
             <NavbarInnerContainer>
                 <LogoContainer>
                     <ImageContainer>
+                        <Link href={"/"} passHref>
                         <Logo src="/logo1.svg" width="80" height="50" />
+
+                        </Link>
                     </ImageContainer>
                 </LogoContainer>
                 <Nav isOpen={isMobileMenuOpen}>

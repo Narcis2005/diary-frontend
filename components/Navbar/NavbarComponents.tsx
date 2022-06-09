@@ -26,7 +26,7 @@ export const LogoContainer = styled.div`
 export const ImageContainer = styled.div`
     height: 60%;
 `;
-export const Logo = styled(Image)``;
+export const Logo = styled(Image)`cursor: pointer;`;
 interface IMobileIconLine {
     isOpen: boolean;
 }
