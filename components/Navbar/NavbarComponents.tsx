@@ -5,7 +5,7 @@ export const NavbarContainer = styled.header`
     height: 4rem;
     background: white;
     z-index: 999;
-    /* position: fixed; */
+    position: relative;
     top: 0;
 `;
 export const NavbarInnerContainer = styled.div`

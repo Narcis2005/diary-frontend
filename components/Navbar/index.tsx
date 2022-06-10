@@ -45,9 +45,9 @@ const Navbar = () => {
                     <ImageContainer>
                         <Link href={"/"} passHref>
                             {/* An error appears when you put a Link on Image */}
-                            <>
+                            <a>
                             <Image alt="logo" src="/logo1.svg" width="80" height="50" style={{cursor: "pointer"}} />
-                            </>
+                            </a>
                         </Link>
                     </ImageContainer>
                 </LogoContainer>
