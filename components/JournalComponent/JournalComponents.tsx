@@ -17,10 +17,9 @@ export const PagesContainer = styled.div`
     width: 65%;
     @media (max-width: 960px) {
         width: 80%;
-    margin-top: 2rem;
+        margin-top: 2rem;
 
     }
-    /* margin-left: 29%; */
 `;
 interface ISidebarContainer {
     show: boolean;
