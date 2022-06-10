@@ -1,17 +1,16 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
     Nav,
     LoginButton,
-    Logo,
     LogoContainer,
     MobileIcon,
     MobileIconLine,
     NavbarContainer,
     NavbarInnerContainer,
     NavItem,
-    NavLink,
     NavLinks,
     SignupButton,
     ImageContainer,
@@ -45,34 +44,36 @@ const Navbar = () => {
                 <LogoContainer>
                     <ImageContainer>
                         <Link href={"/"} passHref>
-                        <Logo src="/logo1.svg" width="80" height="50" />
-
+                            {/* An error appears when you put a Link on Image */}
+                            <>
+                            <Image alt="logo" src="/logo1.svg" width="80" height="50" style={{cursor: "pointer"}} />
+                            </>
                         </Link>
                     </ImageContainer>
                 </LogoContainer>
                 <Nav isOpen={isMobileMenuOpen}>
                     <NavLinks>
                         <NavItem isCurrentPage={router.pathname === "/"}>
-                            <NavLink href={"/"}>Home</NavLink>
+                            <Link href={"/"}>Home</Link>
                         </NavItem>
                         <NavItem isCurrentPage={router.pathname === "/about"}>
-                            <NavLink href={"/about"}>About</NavLink>
+                            <Link href={"/about"}>About</Link>
                         </NavItem>
                         <NavItem isCurrentPage={router.pathname === "/contact"}>
-                            <NavLink href={"/contact"}>Contact</NavLink>
+                            <Link href={"/contact"}>Contact</Link>
                         </NavItem>
                         {/* <NavItem isCurrentPage={router.pathname === "/security"}>
-                            <NavLink href={"/security"}>Security</NavLink>
+                            <Link href={"/security"}>Security</Link>
                         </NavItem> */}
                         <NavItem isCurrentPage={router.pathname === "/login"}>
-                            <NavLink href={"/login"}>
+                            <Link href={"/login"} passHref>
                                 <LoginButton>Login</LoginButton>
-                            </NavLink>
+                            </Link>
                         </NavItem>
                         <NavItem isCurrentPage={router.pathname === "/register"}>
-                            <NavLink href={"/register"}>
+                            <Link href={"/register"} passHref>
                                 <SignupButton>Sign up</SignupButton>
-                            </NavLink>
+                            </Link>
                         </NavItem>
                     </NavLinks>
                 </Nav>

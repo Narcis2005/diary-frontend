@@ -30,8 +30,7 @@ const Hero = () => {
                     </ParagraphContainer>
                     <StartWritingButtonContainer>
                         <Link href="/journal" passHref>
-                        <StartWritingButton>Dear diary...</StartWritingButton>
-
+                            <StartWritingButton>Dear diary...</StartWritingButton>
                         </Link>
                     </StartWritingButtonContainer>
                 </TextContainer>

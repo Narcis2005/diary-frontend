@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import styled from "styled-components";
 
 export const NavbarContainer = styled.header`
@@ -7,7 +5,8 @@ export const NavbarContainer = styled.header`
     height: 4rem;
     background: white;
     z-index: 999;
-    position: relative;
+    /* position: fixed; */
+    top: 0;
 `;
 export const NavbarInnerContainer = styled.div`
     width: 80%;
@@ -26,7 +25,6 @@ export const LogoContainer = styled.div`
 export const ImageContainer = styled.div`
     height: 60%;
 `;
-export const Logo = styled(Image)`cursor: pointer;`;
 interface IMobileIconLine {
     isOpen: boolean;
 }
@@ -124,7 +122,6 @@ export const NavItem = styled.li<INavItem>`
         align-items: center;
     }
 `;
-export const NavLink = styled(Link)``;
 export const LoginButton = styled.button`
     width: 100px;
     border-radius: 20px;

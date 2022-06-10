@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import styled from "styled-components";
 
 export const FooterContainer = styled.footer`
@@ -86,4 +85,3 @@ export const FooterMenuItem = styled.li`
     font-size: 18px;
     opacity: 0.6;
 `;
-export const FooterMenuLink = styled(Link)``;

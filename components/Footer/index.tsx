@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
     FooterContainer,
     FooterTextContentContainer,
@@ -7,7 +8,6 @@ import {
     FooterMenuContainer,
     FooterMenu,
     FooterMenuItem,
-    FooterMenuLink,
     FooterImageContainer,
     FooterCopyright,
     FooterMenuTitle,
@@ -25,16 +25,16 @@ const Footer = () => {
                     <FooterMenuTitle>Menu</FooterMenuTitle>
                     <FooterMenu>
                         <FooterMenuItem>
-                            <FooterMenuLink href="/">Home</FooterMenuLink>
+                            <Link href="/">Home</Link>
                         </FooterMenuItem>
                         <FooterMenuItem>
-                            <FooterMenuLink href="/contact">Contact</FooterMenuLink>
+                            <Link href="/contact">Contact</Link>
                         </FooterMenuItem>
                         <FooterMenuItem>
-                            <FooterMenuLink href="/about">Home</FooterMenuLink>
+                            <Link href="/about">Home</Link>
                         </FooterMenuItem>
                         <FooterMenuItem>
-                            <FooterMenuLink href="/security">Home</FooterMenuLink>
+                            <Link href="/security">Home</Link>
                         </FooterMenuItem>
                     </FooterMenu>
                 </FooterMenuContainer>

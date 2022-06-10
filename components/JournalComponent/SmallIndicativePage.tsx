@@ -1,6 +1,11 @@
-import { SmallIndicativePageBackground, SmallIndicativePageContainer, SmallIndicativePageNumber } from "./JournalComponents";
+import {
+    SmallIndicativePageBackground,
+    SmallIndicativePageContainer,
+    SmallIndicativePageNumber,
+} from "./JournalComponents";
 
-const SmallIndicativePage = ({pageNumber}: {pageNumber: number}) => {
+const SmallIndicativePage = ({ pageNumber }: { pageNumber: number }) => {
+   
     return (
         <>
             <SmallIndicativePageContainer>
