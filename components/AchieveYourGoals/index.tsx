@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
     AchieveYourGoalsContainer,
     AchieveYourGoalsTextContainer,
@@ -6,7 +7,6 @@ import {
     AchieveYourGoalsContentContainer,
     AchieveYourGoalsContent,
     AchieveYourGoalsIllustrationContainer,
-    AchieveYourGoalsIllustration,
     AchieveYourGoalsImageContainer,
 } from "./components";
 
@@ -29,11 +29,12 @@ const AchieveYourGoals = () => {
                 </AchieveYourGoalsTextContainer>
                 <AchieveYourGoalsIllustrationContainer>
                     <AchieveYourGoalsImageContainer>
-                        <AchieveYourGoalsIllustration
+                        <Image
                             src="/planetIllustration.svg"
                             height="500"
                             width="500"
                             layout="responsive"
+                            alt="woman holding a planet"
                         />
                     </AchieveYourGoalsImageContainer>
                 </AchieveYourGoalsIllustrationContainer>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
     HeroContainer,
     TextContainer,
@@ -9,7 +10,6 @@ import {
     StartWritingButtonContainer,
     StartWritingButton,
     IllustrationContainer,
-    IllustrationImage,
 } from "./components";
 
 const Hero = () => {
@@ -35,7 +35,7 @@ const Hero = () => {
                     </StartWritingButtonContainer>
                 </TextContainer>
                 <IllustrationContainer>
-                    <IllustrationImage src="/diaryIllustration.svg" height="500" width="500" layout="responsive" />
+                    <Image alt="woman with notebook" src="/diaryIllustration.svg" height="500" width="500" layout="responsive" />
                 </IllustrationContainer>
             </HeroContainer>
         </>

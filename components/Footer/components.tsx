@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styled from "styled-components";
 
 export const FooterContainer = styled.footer`
@@ -52,7 +51,6 @@ export const FooterImageContainer = styled.div`
     padding-bottom: 10px;
     opacity: 0.8;
 `;
-export const Logo = styled(Image)``;
 export const FooterCopyright = styled.h4`
     font-size: 1.2rem;
     opacity: 0.8;

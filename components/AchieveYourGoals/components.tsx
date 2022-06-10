@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styled from "styled-components";
 
 export const AchieveYourGoalsContainer = styled.div`
@@ -46,4 +45,3 @@ export const AchieveYourGoalsIllustrationContainer = styled.div`
 export const AchieveYourGoalsImageContainer = styled.div`
     width: 100%;
 `;
-export const AchieveYourGoalsIllustration = styled(Image)``;

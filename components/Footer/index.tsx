@@ -1,10 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
     FooterContainer,
     FooterTextContentContainer,
     FooterTextContent,
     FooterLogoContainer,
-    Logo,
     FooterMenuContainer,
     FooterMenu,
     FooterMenuItem,
@@ -40,7 +40,7 @@ const Footer = () => {
                 </FooterMenuContainer>
                 <FooterLogoContainer>
                     <FooterImageContainer>
-                        <Logo src="/logo1.svg" height="80" width="160" />
+                        <Image alt="diary logo" src="/logo1.svg" height="80" width="160" />
                     </FooterImageContainer>
                     <FooterCopyright>&copy; Chirilov Narcis 2022</FooterCopyright>
                 </FooterLogoContainer>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styled from "styled-components";
 
 export const HeroContainer = styled.div`
@@ -68,4 +67,3 @@ export const IllustrationContainer = styled.div`
         width: 50%;
     }
 `;
-export const IllustrationImage = styled(Image)``;
