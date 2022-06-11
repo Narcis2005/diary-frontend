@@ -2,11 +2,13 @@
   font-family: "Caudex";
   src: url("/fonts/Caudex-Regular.ttf");
   font-weight: 400;
+  font-display: swap;
 }
 @font-face {
   font-family: "Caudex";
   src: url("/fonts/Caudex-Bold.ttf");
   font-weight: 700;
+  font-display: swap;
 }
 html,
 body {

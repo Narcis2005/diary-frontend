@@ -40,7 +40,7 @@ const Footer = () => {
                 </FooterMenuContainer>
                 <FooterLogoContainer>
                     <FooterImageContainer>
-                        <Image alt="diary logo" src="/logo1.svg" height="80" width="160" />
+                        <Image alt="diary logo" src="/logo1.svg" height="80" width="160" layout="responsive"/>
                     </FooterImageContainer>
                     <FooterCopyright>&copy; Chirilov Narcis 2022</FooterCopyright>
                 </FooterLogoContainer>
