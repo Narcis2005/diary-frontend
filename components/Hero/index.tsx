@@ -35,7 +35,7 @@ const Hero = () => {
                     </StartWritingButtonContainer>
                 </TextContainer>
                 <IllustrationContainer>
-                    <Image alt="woman with notebook" src="/diaryIllustration.svg" height="500" width="500" layout="responsive" />
+                    <Image alt="woman with notebook" priority src="/diaryIllustration.svg" height="500" width="500" layout="responsive" />
                 </IllustrationContainer>
             </HeroContainer>
         </>
