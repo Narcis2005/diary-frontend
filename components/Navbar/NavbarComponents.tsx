@@ -24,6 +24,7 @@ export const LogoContainer = styled.div`
 
 export const ImageContainer = styled.div`
     height: 60%;
+    width: 80px;
 `;
 interface IMobileIconLine {
     isOpen: boolean;

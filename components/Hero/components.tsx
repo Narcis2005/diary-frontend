@@ -9,11 +9,12 @@ export const HeroContainer = styled.div`
     align-items: center;
     position: relative;
     /* z-index: -1; */
-    margin-top: -4rem;
     @media (min-width: 920px) {
         flex-direction: row;
         justify-content: space-between;
         padding: 0 10%;
+    margin-top: -4rem;
+
     }
 `;
 export const TextContainer = styled.div`
