@@ -31,6 +31,6 @@ describe("WhyUs components", () => {
     test("number of cards", () => {
         const { queryAllByTestId } = render(<WhyUs reasons={expectedProps} />);
         //The CardReason component has a data-testid set to card-container
-        expect(queryAllByTestId("card-container").length+1).toBe(expectedProps.length);
+        expect(queryAllByTestId("card-container").length).toBe(expectedProps.length);
     });
 });
