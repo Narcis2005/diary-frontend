@@ -5,14 +5,14 @@ export default function Document() {
         <Html lang="en">
             <Head >
             <link
-            href='/font/Caudex-Bold.ttf'
-            rel='preload'
+            href='/fonts/Caudex-Bold.ttf'
+            rel='prefetch'
             as='font'
             crossOrigin='anonymous'
           />
           <link
-            href='/font/Caudex-Regular.ttf'
-            rel='preload'
+            href='/fonts/Caudex-Regular.ttf'
+            rel='prefetch'
             as='font'
             crossOrigin='anonymous'
           />
