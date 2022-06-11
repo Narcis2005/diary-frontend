@@ -26,3 +26,6 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm test
+    - run: docker build -t diary-frontend-docker .
+    - run: docker rm -f $(docker ps -a | grep diary-docker-frontend | cut -c1-10)
+    - run: docker run -d -p 3000:3000 diary-frontend-docker
