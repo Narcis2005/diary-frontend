@@ -54,7 +54,7 @@ const Navbar = () => {
                 <Nav isOpen={isMobileMenuOpen}> 
                     <NavLinks>
                         <NavItem isCurrentPage={router.pathname === "/"}>
-                            <Link href={"/"}>Home</Link> 
+                            <Link href={"/"}>Home</Link>  
                         </NavItem>
                         <NavItem isCurrentPage={router.pathname === "/about"}>
                             <Link href={"/about"}>About</Link>
