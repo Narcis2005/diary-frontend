@@ -1,6 +1,30 @@
-import { PageContainer, InfoContainerJournal, WrritenByJournal, WrritenAtJournal, Page } from "./JournalComponents";
+import React from "react";
+import {
+    PageContainer,
+    InfoContainerJournal,
+    WrritenByJournal,
+    WrritenAtJournal,
+    Page,
+    TextAreaContainer,
+} from "./JournalComponents";
 
-const PageComponent = ({ date, content }: { date: Date; content: string }) => {
+const PageComponent = ({
+    date,
+    content,
+    onChange,
+    index,
+}: {
+    date: Date;
+    content: string;
+    index: number;
+    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>, index: number, date: Date) => void;
+}) => {
+    const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        e.target.style.height = "inherit";
+        e.target.style.height = `${e.target.scrollHeight}px`;
+
+        onChange(e, index, date);
+    };
     const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" } as const; //ts throws some type error
     return (
         <PageContainer>
@@ -8,7 +32,9 @@ const PageComponent = ({ date, content }: { date: Date; content: string }) => {
                 <WrritenByJournal>Narcis&apos;s diary</WrritenByJournal>
                 <WrritenAtJournal>{date.toLocaleDateString("en-US", options)}</WrritenAtJournal>
             </InfoContainerJournal>
-            <Page value={content}></Page>
+            <TextAreaContainer>
+                <Page value={content} onChange={handleOnChange}></Page>
+            </TextAreaContainer>
         </PageContainer>
     );
 };

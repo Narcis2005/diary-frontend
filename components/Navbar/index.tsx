@@ -46,15 +46,23 @@ const Navbar = () => {
                         <Link href={"/"} passHref>
                             {/* An error appears when you put a Link on Image */}
                             <a>
-                            <Image alt="logo" src="/logo1.svg" width={80} height={50} priority layout="responsive" style={{cursor: "pointer"}} />
-                            </a> 
+                                <Image
+                                    alt="logo"
+                                    src="/logo1.svg"
+                                    width={80}
+                                    height={50}
+                                    priority
+                                    layout="responsive"
+                                    style={{ cursor: "pointer" }}
+                                />
+                            </a>
                         </Link>
                     </ImageContainer>
                 </LogoContainer>
-                <Nav isOpen={isMobileMenuOpen}> 
+                <Nav isOpen={isMobileMenuOpen}>
                     <NavLinks>
                         <NavItem isCurrentPage={router.pathname === "/"}>
-                            <Link href={"/"}>Home</Link>  
+                            <Link href={"/"}>Home</Link>
                         </NavItem>
                         <NavItem isCurrentPage={router.pathname === "/about"}>
                             <Link href={"/about"}>About</Link>

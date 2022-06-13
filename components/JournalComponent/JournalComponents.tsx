@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button } from "../FormComponents";
 
 export const JournalContainer = styled.div`
     display: flex;
@@ -10,7 +11,6 @@ export const JournalContainer = styled.div`
         flex-direction: column;
         align-items: center;
         padding: 2rem 0;
-
     }
 `;
 export const PagesContainer = styled.div`
@@ -18,7 +18,6 @@ export const PagesContainer = styled.div`
     @media (max-width: 960px) {
         width: 80%;
         margin-top: 2rem;
-
     }
 `;
 interface ISidebarContainer {
@@ -54,38 +53,50 @@ export const SidebarContainer = styled.div<ISidebarContainer>`
         top: ${({ show }) => (show ? "10px" : "-12rem")};
         transition: top 0.5s ease-in-out;
     }
-
 `;
 export const PageContainer = styled.div`
     padding: 20px;
-    height: 130vh;
+    height: 120vh;
     width: 100%;
     box-shadow: rgb(0 0 0 / 20%) 0px 3px 20px;
     margin: 2rem 0;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
+    overflow: auto;
+    overflow-x: hidden;
 `;
-
+export const TextAreaContainer = styled.div`
+    height: 95%;
+`;
 export const Page = styled.textarea`
-    height: 100%;
+    /* max-height: 1000vh; */
+    min-height: 100%;
     width: 100%;
     line-height: 40px;
     background: linear-gradient(to bottom, white 39px, black 1px);
     background-size: 100% 40px;
-    padding: 2px 10px;
     border: none;
     resize: none;
     outline: none;
     padding: 8px 20px;
     font-size: 1.3rem;
+    overflow: hidden;
     &:focus {
         border: none;
+    }
+    @media (max-width: 920px) {
+        line-height: 30px;
+        background: linear-gradient(to bottom, white 29px, black 1px);
+        background-size: 100% 30px;
+        font-size: 1.2rem;
+        padding: 4px 10px;
     }
 `;
 export const InfoContainerJournal = styled.div`
     display: flex;
     width: 80%;
+    margin-left: 10%;
     justify-content: space-between;
     padding-bottom: 1rem;
 `;
@@ -104,19 +115,17 @@ export const SmallIndicativePageContainer = styled.div`
     }
     @media (max-width: 960px) {
         flex-direction: column;
-        
     }
 `;
 export const IndicativePageForm = styled.form`
     width: 100%;
     @media (max-width: 960px) {
-        display: flex;    
+        display: flex;
     }
-
 `;
 export const SmallIndicativePageBackground = styled.input`
     width: 50%;
-    height:70%;
+    height: 70%;
     background: linear-gradient(to bottom, white 9px, black 1px);
     background-size: 100% 10px;
     margin-bottom: 20px;
@@ -143,12 +152,20 @@ export const SmallIndicativePageBackground = styled.input`
     }
     @media (max-width: 960px) {
         margin: 0 1rem 20px 1rem;
-    width: 3rem;
-
+        width: 3rem;
     }
 `;
 
 export const SmallIndicativePageNumber = styled.p`
     font-size: 20px;
     font-weight: 700;
+`;
+
+export const SavebuttonContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+`;
+export const SaveButton = styled(Button)`
+    width: 150px;
 `;

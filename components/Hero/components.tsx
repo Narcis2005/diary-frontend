@@ -13,8 +13,7 @@ export const HeroContainer = styled.div`
         flex-direction: row;
         justify-content: space-between;
         padding: 0 10%;
-    margin-top: -4rem;
-
+        margin-top: -4rem;
     }
 `;
 export const TextContainer = styled.div`

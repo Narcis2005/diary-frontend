@@ -10,7 +10,15 @@ import {
     ContactTextarea,
 } from "./ContactComponents";
 
-const ContactComponent = () => {
+const ContactComponent = ({
+    onChange,
+    value,
+    onSubmit,
+}: {
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    value: { message: string; subject: string; email: string; fullname: string };
+    onSubmit: (e: React.FormEvent) => void;
+}) => {
     return (
         <>
             <ContactContainer>
@@ -22,22 +30,49 @@ const ContactComponent = () => {
                     </ContactText>
                 </ContactLeftSideContainer>
                 <ContactRightSideContainer>
-                    <ContactForm>
+                    <ContactForm onSubmit={onSubmit}>
                         <ContactLabelInputContainer>
                             <Label htmlFor="fullname">Full Name</Label>
-                            <Input name="fullname" type="text" placeholder="John Doe" />
+                            <Input
+                                name="fullname"
+                                type="text"
+                                placeholder="John Doe"
+                                value={value.fullname}
+                                onChange={onChange}
+                                required
+                            />
                         </ContactLabelInputContainer>
                         <ContactLabelInputContainer>
                             <Label htmlFor="email">Email</Label>
-                            <Input name="email" type="email" placeholder="john@example.com" />
+                            <Input
+                                name="email"
+                                type="email"
+                                placeholder="john@example.com"
+                                value={value.email}
+                                onChange={onChange}
+                                required
+                            />
                         </ContactLabelInputContainer>
                         <ContactLabelInputContainer>
                             <Label htmlFor="subject">Subject</Label>
-                            <Input name="subject" type="text" placeholder="I found a bug" />
+                            <Input
+                                name="subject"
+                                type="text"
+                                placeholder="I found a bug"
+                                value={value.subject}
+                                onChange={onChange}
+                                required
+                            />
                         </ContactLabelInputContainer>
                         <ContactLabelInputContainer>
                             <Label htmlFor="message">Message</Label>
-                            <ContactTextarea name="message" placeholder="Your message..."></ContactTextarea>
+                            <ContactTextarea
+                                name="message"
+                                placeholder="Your message..."
+                                value={value.message}
+                                onChange={onChange}
+                                required
+                            ></ContactTextarea>
                         </ContactLabelInputContainer>
                         <ContactLabelInputContainer>
                             <Button>Login</Button>

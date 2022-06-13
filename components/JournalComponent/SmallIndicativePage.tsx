@@ -5,7 +5,6 @@ import {
 } from "./JournalComponents";
 
 const SmallIndicativePage = ({ pageNumber }: { pageNumber: number }) => {
-   
     return (
         <>
             <SmallIndicativePageContainer>
