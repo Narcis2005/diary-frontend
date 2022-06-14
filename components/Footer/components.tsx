@@ -70,7 +70,7 @@ export const FooterMenuContainer = styled.nav`
 export const FooterMenu = styled.ul`
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
 `;
 export const FooterMenuTitle = styled.h4`
     opacity: 0.8;
