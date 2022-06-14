@@ -162,3 +162,40 @@ export const SignupButton = styled.button`
         letter-spacing: normal;
     }
 `;
+
+export const DropdownContainer = styled.div`
+    position: relative;
+    margin-left: 10px;
+    
+`;
+
+export const ProfileImageContainer = styled.div`
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+`;
+interface IDropdownMenu {
+    show: boolean;
+}
+export const DropdownMenu = styled.ul<IDropdownMenu>`
+    position: absolute;
+    display: ${({ show }) => (show ? "block" : "none")};
+    background: rgb(230, 230,230);
+    width: 10rem;
+    top: 100%;
+    left: calc(-10rem + 40px);
+    margin-top: 2px;
+    border-radius: 6px;
+    padding: 10px;
+`;
+export const DropdownItem = styled.li`
+    list-style: none;
+    margin: 10px 0;
+    padding:  3px 5px; 
+    font-weight: 700;
+    background: white;
+    border-radius: 3px;
+    cursor: pointer;
+`;

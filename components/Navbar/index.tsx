@@ -14,9 +14,13 @@ import {
     NavLinks,
     SignupButton,
     ImageContainer,
+    DropdownContainer,
+    ProfileImageContainer,
+    DropdownItem,
+    DropdownMenu,
 } from "./NavbarComponents";
 
-const Navbar = () => {
+const Navbar = ({profileImageURL} : {profileImageURL?: string}) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const handleMobileClick = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -26,6 +30,7 @@ const Navbar = () => {
     const checkOutsideClick = useCallback((e: MouseEvent) => {
         if (navContainerRef.current && !navContainerRef.current.contains(e.target as Node)) {
             setIsMobileMenuOpen(false);
+            setShow(false);
         }
     }, []);
     const router = useRouter();
@@ -38,6 +43,10 @@ const Navbar = () => {
             document.removeEventListener("mouseup", checkOutsideClick);
         };
     }, [checkOutsideClick]);
+    const [show, setShow] = useState(false);
+    const handleDropdownMenuClick = () => {
+        setShow(prevShow => !prevShow);
+    };
     return (
         <NavbarContainer ref={navContainerRef}>
             <NavbarInnerContainer>
@@ -70,19 +79,41 @@ const Navbar = () => {
                         <NavItem isCurrentPage={router.pathname === "/contact"}>
                             <Link href={"/contact"}>Contact</Link>
                         </NavItem>
-                        {/* <NavItem isCurrentPage={router.pathname === "/security"}>
-                            <Link href={"/security"}>Security</Link>
-                        </NavItem> */}
-                        <NavItem isCurrentPage={router.pathname === "/login"}>
-                            <Link href={"/login"} passHref>
-                                <LoginButton>Login</LoginButton>
-                            </Link>
-                        </NavItem>
-                        <NavItem isCurrentPage={router.pathname === "/register"}>
-                            <Link href={"/register"} passHref>
-                                <SignupButton>Sign up</SignupButton>
-                            </Link>
-                        </NavItem>
+                        {!profileImageURL && (
+                            <>
+                             <NavItem isCurrentPage={router.pathname === "/login"}>
+                             <Link href={"/login"} passHref>
+                                 <LoginButton>Login</LoginButton>
+                             </Link>
+                         </NavItem>
+                         <NavItem isCurrentPage={router.pathname === "/register"}>
+                             <Link href={"/register"} passHref>
+                                 <SignupButton>Sign up</SignupButton>
+                             </Link>
+                         </NavItem>
+                         </>
+                        )}
+                        {profileImageURL && (
+                            <NavItem isCurrentPage={true}>
+                                <DropdownContainer>
+                                    <ProfileImageContainer  onClick={handleDropdownMenuClick}>
+                                        <Image src={profileImageURL} alt="profile image" layout="responsive" width="80" height="80"/>
+                                    </ProfileImageContainer >
+                                    <DropdownMenu show={show}>
+                                        <DropdownItem>
+                                            <Link href="/profile">Profile</Link>
+                                        </DropdownItem>
+                                        <DropdownItem>
+                                            <Link href="/journal">Write</Link>
+                                        </DropdownItem>
+                                        <DropdownItem>
+                                            <Link href="/logout">Logout</Link>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </DropdownContainer>
+                            </NavItem>
+                        )}
+                       
                     </NavLinks>
                 </Nav>
                 <MobileIcon onClick={handleMobileClick}>
