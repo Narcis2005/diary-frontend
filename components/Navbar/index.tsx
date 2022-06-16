@@ -101,7 +101,7 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                                 <Link href={"/profile"}>Profile</Link>
                             </NavItem>
                             <NavItem isCurrentPage={router.pathname === "/about"} showOnMobile showOnDesktop={false}>
-                                <Link href={"/write"}>Write</Link>
+                                <Link href={"/journal"}>Write</Link>
                             </NavItem>
                             <NavItem isCurrentPage={router.pathname === "/contact"} showOnMobile showOnDesktop={false}>
                                 <Link href={"/logout"}>Logout</Link>
