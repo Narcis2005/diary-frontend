@@ -106,11 +106,15 @@ export const NavLinks = styled.ul`
 `;
 interface INavItem {
     isCurrentPage: boolean;
+    showOnMobile?: boolean;
+    showOnDesktop?: boolean;
 }
 export const NavItem = styled.li<INavItem>`
     display: block;
     height: 20px;
     opacity: ${({ isCurrentPage }) => (isCurrentPage ? "1" : "0.8")};
+    ${({ showOnMobile }) => (showOnMobile === true ? "" : "display:none")};
+
     font-size: 1.235rem;
     &:hover {
         opacity: 1;
@@ -120,6 +124,8 @@ export const NavItem = styled.li<INavItem>`
         font-size: 1rem;
         height: 30px;
         display: flex;
+    ${({ showOnDesktop }) => (showOnDesktop === true ? "" : "display: none;")};
+
         align-items: center;
     }
 `;
@@ -201,4 +207,7 @@ export const DropdownItem = styled.li`
         display: block;
         padding: 3px 5px;
     }
+`;
+export const LoggedLinks = styled.div`
+
 `;

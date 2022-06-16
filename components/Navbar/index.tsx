@@ -70,31 +70,44 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                 </LogoContainer>
                 <Nav isOpen={isMobileMenuOpen}>
                     <NavLinks>
-                        <NavItem isCurrentPage={router.pathname === "/"}>
+                        <NavItem isCurrentPage={router.pathname === "/"} showOnMobile showOnDesktop>
                             <Link href={"/"}>Home</Link>
                         </NavItem>
-                        <NavItem isCurrentPage={router.pathname === "/about"}>
+                        <NavItem isCurrentPage={router.pathname === "/about"} showOnMobile showOnDesktop>
                             <Link href={"/about"}>About</Link>
                         </NavItem>
-                        <NavItem isCurrentPage={router.pathname === "/contact"}>
+                        <NavItem isCurrentPage={router.pathname === "/contact"} showOnMobile showOnDesktop>
                             <Link href={"/contact"}>Contact</Link>
                         </NavItem>
                         {!profileImageURL && (
                             <>
-                                <NavItem isCurrentPage={router.pathname === "/login"}>
+                                <NavItem isCurrentPage={router.pathname === "/login"} showOnMobile showOnDesktop>
                                     <Link href={"/login"} passHref>
                                         <LoginButton>Login</LoginButton>
                                     </Link>
                                 </NavItem>
-                                <NavItem isCurrentPage={router.pathname === "/register"}>
+                                <NavItem isCurrentPage={router.pathname === "/register"}  showOnMobile showOnDesktop>
                                     <Link href={"/register"} passHref>
                                         <SignupButton>Sign up</SignupButton>
                                     </Link>
                                 </NavItem>
                             </>
                         )}
+                        
                         {profileImageURL && (
-                            <NavItem isCurrentPage={true}>
+                            <>
+                            
+                                <NavItem isCurrentPage={router.pathname === "/"} showOnMobile showOnDesktop={false}>
+                                <Link href={"/profile"}>Profile</Link>
+                            </NavItem>
+                            <NavItem isCurrentPage={router.pathname === "/about"} showOnMobile showOnDesktop={false}>
+                                <Link href={"/write"}>Write</Link>
+                            </NavItem>
+                            <NavItem isCurrentPage={router.pathname === "/contact"} showOnMobile showOnDesktop={false}>
+                                <Link href={"/logout"}>Logout</Link>
+                            </NavItem>
+                            
+                            <NavItem isCurrentPage={true} showOnMobile={false} showOnDesktop={true}> 
                                 <DropdownContainer>
                                     <ProfileImageContainer onClick={handleDropdownMenuClick}>
                                         <Image
@@ -118,6 +131,7 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                                     </DropdownMenu>
                                 </DropdownContainer>
                             </NavItem>
+                            </>
                         )}
                     </NavLinks>
                 </Nav>
