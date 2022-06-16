@@ -166,7 +166,6 @@ export const SignupButton = styled.button`
 export const DropdownContainer = styled.div`
     position: relative;
     margin-left: 10px;
-    
 `;
 
 export const ProfileImageContainer = styled.div`
@@ -182,7 +181,7 @@ interface IDropdownMenu {
 export const DropdownMenu = styled.ul<IDropdownMenu>`
     position: absolute;
     display: ${({ show }) => (show ? "block" : "none")};
-    background: rgb(230, 230,230);
+    background: rgb(230, 230, 230);
     width: 10rem;
     top: 100%;
     left: calc(-10rem + 40px);
@@ -193,9 +192,13 @@ export const DropdownMenu = styled.ul<IDropdownMenu>`
 export const DropdownItem = styled.li`
     list-style: none;
     margin: 10px 0;
-    padding:  3px 5px; 
     font-weight: 700;
     background: white;
     border-radius: 3px;
     cursor: pointer;
+    & > * {
+        width: 100%;
+        display: block;
+        padding: 3px 5px;
+    }
 `;

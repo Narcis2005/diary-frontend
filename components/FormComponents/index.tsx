@@ -54,6 +54,10 @@ export const Button = styled.button`
     &:hover {
         opacity: 1;
     }
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+    }
 `;
 
 export const Title = styled.h2`

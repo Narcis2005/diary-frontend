@@ -20,7 +20,7 @@ import {
     DropdownMenu,
 } from "./NavbarComponents";
 
-const Navbar = ({profileImageURL} : {profileImageURL?: string}) => {
+const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const handleMobileClick = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -45,7 +45,7 @@ const Navbar = ({profileImageURL} : {profileImageURL?: string}) => {
     }, [checkOutsideClick]);
     const [show, setShow] = useState(false);
     const handleDropdownMenuClick = () => {
-        setShow(prevShow => !prevShow);
+        setShow((prevShow) => !prevShow);
     };
     return (
         <NavbarContainer ref={navContainerRef}>
@@ -81,24 +81,30 @@ const Navbar = ({profileImageURL} : {profileImageURL?: string}) => {
                         </NavItem>
                         {!profileImageURL && (
                             <>
-                             <NavItem isCurrentPage={router.pathname === "/login"}>
-                             <Link href={"/login"} passHref>
-                                 <LoginButton>Login</LoginButton>
-                             </Link>
-                         </NavItem>
-                         <NavItem isCurrentPage={router.pathname === "/register"}>
-                             <Link href={"/register"} passHref>
-                                 <SignupButton>Sign up</SignupButton>
-                             </Link>
-                         </NavItem>
-                         </>
+                                <NavItem isCurrentPage={router.pathname === "/login"}>
+                                    <Link href={"/login"} passHref>
+                                        <LoginButton>Login</LoginButton>
+                                    </Link>
+                                </NavItem>
+                                <NavItem isCurrentPage={router.pathname === "/register"}>
+                                    <Link href={"/register"} passHref>
+                                        <SignupButton>Sign up</SignupButton>
+                                    </Link>
+                                </NavItem>
+                            </>
                         )}
                         {profileImageURL && (
                             <NavItem isCurrentPage={true}>
                                 <DropdownContainer>
-                                    <ProfileImageContainer  onClick={handleDropdownMenuClick}>
-                                        <Image src={profileImageURL} alt="profile image" layout="responsive" width="80" height="80"/>
-                                    </ProfileImageContainer >
+                                    <ProfileImageContainer onClick={handleDropdownMenuClick}>
+                                        <Image
+                                            src={profileImageURL}
+                                            alt="profile image"
+                                            layout="responsive"
+                                            width="80"
+                                            height="80"
+                                        />
+                                    </ProfileImageContainer>
                                     <DropdownMenu show={show}>
                                         <DropdownItem>
                                             <Link href="/profile">Profile</Link>
@@ -113,7 +119,6 @@ const Navbar = ({profileImageURL} : {profileImageURL?: string}) => {
                                 </DropdownContainer>
                             </NavItem>
                         )}
-                       
                     </NavLinks>
                 </Nav>
                 <MobileIcon onClick={handleMobileClick}>
