@@ -124,7 +124,7 @@ export const NavItem = styled.li<INavItem>`
         font-size: 1rem;
         height: 30px;
         display: flex;
-    ${({ showOnDesktop }) => (showOnDesktop === true ? "" : "display: none;")};
+        ${({ showOnDesktop }) => (showOnDesktop === true ? "" : "display: none;")};
 
         align-items: center;
     }
@@ -208,6 +208,4 @@ export const DropdownItem = styled.li`
         padding: 3px 5px;
     }
 `;
-export const LoggedLinks = styled.div`
-
-`;
+export const LoggedLinks = styled.div``;

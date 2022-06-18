@@ -18,10 +18,10 @@ export default class MyDocument extends Document {
                 ...initialProps,
                 styles: [
                     // A random hardcoded key stops the warning in console
-                    <Fragment key="something"> 
+                    <Fragment key="something">
                         {initialProps.styles}
                         {sheet.getStyleElement()}
-                    </Fragment >,
+                    </Fragment>,
                 ],
             };
         } finally {

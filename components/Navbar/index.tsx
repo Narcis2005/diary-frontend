@@ -38,14 +38,13 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
     //in test, router is undefined
     useEffect(() => {
         if (router?.isReady) {
-          setPathname(router.pathname);
-          
+            setPathname(router.pathname);
         }
-      }, [router?.isReady,router?.pathname]);
-        useEffect(() => {
+    }, [router?.isReady, router?.pathname]);
+    useEffect(() => {
         document.addEventListener("mouseup", checkOutsideClick);
     }, [checkOutsideClick]);
-   
+
     //I think it's not necessary to do this, knowing that the nav is always rendered
     useEffect(() => {
         return () => {
@@ -57,9 +56,7 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
         setShow((prevShow) => !prevShow);
     };
     return (
-        
         <NavbarContainer ref={navContainerRef}>
-            
             <NavbarInnerContainer>
                 <LogoContainer>
                     <ImageContainer>
@@ -79,7 +76,7 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                         </Link>
                     </ImageContainer>
                 </LogoContainer>
-                
+
                 <Nav isOpen={isMobileMenuOpen}>
                     <NavLinks>
                         <NavItem isCurrentPage={pathname === "/"} showOnMobile showOnDesktop>
@@ -98,53 +95,51 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                                         <LoginButton>Login</LoginButton>
                                     </Link>
                                 </NavItem>
-                                <NavItem isCurrentPage={pathname === "/register"}  showOnMobile showOnDesktop>
+                                <NavItem isCurrentPage={pathname === "/register"} showOnMobile showOnDesktop>
                                     <Link href={"/register"} passHref>
                                         <SignupButton>Sign up</SignupButton>
                                     </Link>
                                 </NavItem>
                             </>
                         )}
-                        
+
                         {profileImageURL && (
                             <>
-                            
                                 <NavItem isCurrentPage={pathname === "/"} showOnMobile showOnDesktop={false}>
-                                <Link href={"/profile"}>Profile</Link>
-                            </NavItem>
-                            <NavItem isCurrentPage={pathname === "/about"} showOnMobile showOnDesktop={false}>
-                                <Link href={"/journal"}>Write</Link>
-                            </NavItem>
-                            <NavItem isCurrentPage={pathname === "/contact"} showOnMobile showOnDesktop={false}>
-                                <Link href={"/logout"}>Logout</Link>
-                            </NavItem>
-                            
-                            <NavItem isCurrentPage={true} showOnMobile={false} showOnDesktop={true}> 
-                                <DropdownContainer>
-                                    <ProfileImageContainer onClick={handleDropdownMenuClick}>
-                                        <Image
-                                            src={profileImageURL}
-                                            alt="profile image"
-                                            layout="responsive"
-                                            width="80"
-                                            height="80"
-                                    data-testid="profile-image"
+                                    <Link href={"/profile"}>Profile</Link>
+                                </NavItem>
+                                <NavItem isCurrentPage={pathname === "/about"} showOnMobile showOnDesktop={false}>
+                                    <Link href={"/journal"}>Write</Link>
+                                </NavItem>
+                                <NavItem isCurrentPage={pathname === "/contact"} showOnMobile showOnDesktop={false}>
+                                    <Link href={"/logout"}>Logout</Link>
+                                </NavItem>
 
-                                        />
-                                    </ProfileImageContainer>
-                                    <DropdownMenu show={show}>
-                                        <DropdownItem>
-                                            <Link href="/profile">Profile</Link>
-                                        </DropdownItem>
-                                        <DropdownItem>
-                                            <Link href="/journal">Write</Link>
-                                        </DropdownItem>
-                                        <DropdownItem>
-                                            <Link href="/logout">Logout</Link>
-                                        </DropdownItem>
-                                    </DropdownMenu>
-                                </DropdownContainer>
-                            </NavItem>
+                                <NavItem isCurrentPage={true} showOnMobile={false} showOnDesktop={true}>
+                                    <DropdownContainer>
+                                        <ProfileImageContainer onClick={handleDropdownMenuClick}>
+                                            <Image
+                                                src={profileImageURL}
+                                                alt="profile image"
+                                                layout="responsive"
+                                                width="80"
+                                                height="80"
+                                                data-testid="profile-image"
+                                            />
+                                        </ProfileImageContainer>
+                                        <DropdownMenu show={show}>
+                                            <DropdownItem>
+                                                <Link href="/profile">Profile</Link>
+                                            </DropdownItem>
+                                            <DropdownItem>
+                                                <Link href="/journal">Write</Link>
+                                            </DropdownItem>
+                                            <DropdownItem>
+                                                <Link href="/logout">Logout</Link>
+                                            </DropdownItem>
+                                        </DropdownMenu>
+                                    </DropdownContainer>
+                                </NavItem>
                             </>
                         )}
                     </NavLinks>

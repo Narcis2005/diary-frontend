@@ -95,6 +95,7 @@ const ProfileComponent = ({
                                         value={userData.fullName}
                                         name="fullName"
                                         onChange={handleInputChange}
+                                        data-testid="input-fullname"
                                     />
                                 </LabelinputContainerProfile>
                             </FormGroup>
@@ -106,6 +107,7 @@ const ProfileComponent = ({
                                         value={userData.username}
                                         name="username"
                                         onChange={handleInputChange}
+                                        data-testid="input-username"
                                     />
                                 </LabelinputContainerProfile>
                                 <LabelinputContainerProfile>
@@ -115,6 +117,7 @@ const ProfileComponent = ({
                                         value={userData.email}
                                         name="email"
                                         onChange={handleInputChange}
+                                        data-testid="input-email"
                                     />
                                 </LabelinputContainerProfile>
                             </FormGroup>
@@ -130,7 +133,9 @@ const ProfileComponent = ({
                                 </FileUpload>
                             </FormGroup>
                             <FormGroup>
-                                <Button disabled={!userData.changesWereMade}>Save</Button>
+                                <Button disabled={!userData.changesWereMade} data-testid="button-profile">
+                                    Save
+                                </Button>
                             </FormGroup>
                         </ProfileForm>
                     </ProfileSection>
