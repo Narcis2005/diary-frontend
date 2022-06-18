@@ -1,4 +1,5 @@
 import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from "next/document";
+import { Fragment } from "react";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -16,10 +17,11 @@ export default class MyDocument extends Document {
             return {
                 ...initialProps,
                 styles: [
-                    <>
+                    // A random hardcoded key stops the warning in console
+                    <Fragment key="something"> 
                         {initialProps.styles}
                         {sheet.getStyleElement()}
-                    </>,
+                    </Fragment >,
                 ],
             };
         } finally {

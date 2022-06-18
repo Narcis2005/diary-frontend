@@ -33,10 +33,19 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
             setShow(false);
         }
     }, []);
+    const [pathname, setPathname] = useState("");
     const router = useRouter();
+    //in test, router is undefined
     useEffect(() => {
+        if (router?.isReady) {
+          setPathname(router.pathname);
+          
+        }
+      }, [router?.isReady,router?.pathname]);
+        useEffect(() => {
         document.addEventListener("mouseup", checkOutsideClick);
     }, [checkOutsideClick]);
+   
     //I think it's not necessary to do this, knowing that the nav is always rendered
     useEffect(() => {
         return () => {
@@ -48,7 +57,9 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
         setShow((prevShow) => !prevShow);
     };
     return (
+        
         <NavbarContainer ref={navContainerRef}>
+            
             <NavbarInnerContainer>
                 <LogoContainer>
                     <ImageContainer>
@@ -68,25 +79,26 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                         </Link>
                     </ImageContainer>
                 </LogoContainer>
+                
                 <Nav isOpen={isMobileMenuOpen}>
                     <NavLinks>
-                        <NavItem isCurrentPage={router.pathname === "/"} showOnMobile showOnDesktop>
+                        <NavItem isCurrentPage={pathname === "/"} showOnMobile showOnDesktop>
                             <Link href={"/"}>Home</Link>
                         </NavItem>
-                        <NavItem isCurrentPage={router.pathname === "/about"} showOnMobile showOnDesktop>
+                        <NavItem isCurrentPage={pathname === "/about"} showOnMobile showOnDesktop>
                             <Link href={"/about"}>About</Link>
                         </NavItem>
-                        <NavItem isCurrentPage={router.pathname === "/contact"} showOnMobile showOnDesktop>
+                        <NavItem isCurrentPage={pathname === "/contact"} showOnMobile showOnDesktop>
                             <Link href={"/contact"}>Contact</Link>
                         </NavItem>
                         {!profileImageURL && (
                             <>
-                                <NavItem isCurrentPage={router.pathname === "/login"} showOnMobile showOnDesktop>
+                                <NavItem isCurrentPage={pathname === "/login"} showOnMobile showOnDesktop>
                                     <Link href={"/login"} passHref>
                                         <LoginButton>Login</LoginButton>
                                     </Link>
                                 </NavItem>
-                                <NavItem isCurrentPage={router.pathname === "/register"}  showOnMobile showOnDesktop>
+                                <NavItem isCurrentPage={pathname === "/register"}  showOnMobile showOnDesktop>
                                     <Link href={"/register"} passHref>
                                         <SignupButton>Sign up</SignupButton>
                                     </Link>
@@ -97,13 +109,13 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                         {profileImageURL && (
                             <>
                             
-                                <NavItem isCurrentPage={router.pathname === "/"} showOnMobile showOnDesktop={false}>
+                                <NavItem isCurrentPage={pathname === "/"} showOnMobile showOnDesktop={false}>
                                 <Link href={"/profile"}>Profile</Link>
                             </NavItem>
-                            <NavItem isCurrentPage={router.pathname === "/about"} showOnMobile showOnDesktop={false}>
+                            <NavItem isCurrentPage={pathname === "/about"} showOnMobile showOnDesktop={false}>
                                 <Link href={"/journal"}>Write</Link>
                             </NavItem>
-                            <NavItem isCurrentPage={router.pathname === "/contact"} showOnMobile showOnDesktop={false}>
+                            <NavItem isCurrentPage={pathname === "/contact"} showOnMobile showOnDesktop={false}>
                                 <Link href={"/logout"}>Logout</Link>
                             </NavItem>
                             
@@ -116,6 +128,8 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                                             layout="responsive"
                                             width="80"
                                             height="80"
+                                    data-testid="profile-image"
+
                                         />
                                     </ProfileImageContainer>
                                     <DropdownMenu show={show}>
