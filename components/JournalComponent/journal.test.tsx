@@ -4,9 +4,11 @@
 import { render } from "@testing-library/react";
 import JournalComponent, { formatStringsInSubstringsWithNWords } from ".";
 import "@testing-library/jest-dom";
-
+import 'intersection-observer';
 describe("test index component", () => {
     test("content should appear on page", () => {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        window.HTMLElement.prototype.scrollIntoView = function() {};
         const data = [
             {
                 date: new Date(),
