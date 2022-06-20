@@ -14,37 +14,37 @@ interface IJournalComponent {
     content: string;
     date: Date;
 }
-const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
-    interface IPageContent {
-        content: string;
-        id: number;
-    }
-    const formatStringsInSubstringsWithNWords = (string: string, n: number): IPageContent[] => {
-        const stringsArray = string.split(" ");
-        const stringsFormated = [];
-        for (let i = 0; i < stringsArray.length; i += n) {
-            let string = "";
-            const length = stringsArray.length - i >= n ? i + n : stringsArray.length;
-            for (let j = i; j < length; j++) {
-                string += stringsArray[j] + " ";
-            }
-            stringsFormated.push({ content: string, id: i / n + 1 });
+interface IPageContent {
+    content: string;
+    id: number;
+}
+export const formatStringsInSubstringsWithNWords = (string: string, n: number): IPageContent[] => {
+    const stringsArray = string.split(" ");
+    const stringsFormated = [];
+    for (let i = 0; i < stringsArray.length; i += n) {
+        let string = "";
+        const length = stringsArray.length - i >= n ? i + n : stringsArray.length;
+        for (let j = i; j < length; j++) {
+            string += stringsArray[j] + " ";
         }
-        return stringsFormated;
-    };
+        stringsFormated.push({ content: string, id: i / n + 1 });
+    }
+    return stringsFormated;
+};
+const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
     const formatedContent = data.map((content) => {
         return { content: formatStringsInSubstringsWithNWords(content.content, 130), date: content.date };
     });
     let pageNumber = 1;
     const [show, setShow] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
-    const controlNavbar = useCallback(() => {
+    const controlSidebar = useCallback(() => {
         if (typeof window !== "undefined") {
             if (window.scrollY > lastScrollY) {
-                // if scroll down hide the navbar
+                // if scroll down hide the sidebar
                 setShow(false);
             } else {
-                // if scroll up show the navbar
+                // if scroll up show the sidebar
                 setShow(true);
             }
 
@@ -55,14 +55,14 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            window.addEventListener("scroll", controlNavbar);
+            window.addEventListener("scroll", controlSidebar);
 
             // cleanup function
             return () => {
-                window.removeEventListener("scroll", controlNavbar);
+                window.removeEventListener("scroll", controlSidebar);
             };
         }
-    }, [controlNavbar]);
+    }, [controlSidebar]);
 
     interface IDateByDate {
         date: Date;
@@ -97,6 +97,14 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
         });
         console.log(dataToSend);
     };
+    const [currentPage, setCurrentPage] = useState(1);
+    const onChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCurrentPage(Number(e.target.value));
+    };
+    const changePageOnScroll = (nr: number) => {
+        setCurrentPage(nr);
+    };
+    let indexOfPage = 1;
     return (
         <>
             <JournalContainer>
@@ -104,7 +112,12 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                     <IndicativePageForm>
                         {dataByDate.map((data) => {
                             return data.content.map((content, index) => (
-                                <SmallIndicativePage pageNumber={pageNumber++} key={index} />
+                                <SmallIndicativePage
+                                    pageNumber={pageNumber++}
+                                    key={index}
+                                    selectedNumber={currentPage}
+                                    onChange={onChangePage}
+                                />
                             ));
                         })}
                     </IndicativePageForm>
@@ -115,9 +128,11 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                             <PageComponent
                                 key={index}
                                 onChange={onChange}
-                                index={index + 1}
+                                index={indexOfPage++}
                                 content={content.content}
                                 date={data.date}
+                                currentPage={currentPage}
+                                change={changePageOnScroll}
                             />
                         ));
                     })}
@@ -130,4 +145,4 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
     );
 };
 
-export default JournalComponent;
+export default React.memo(JournalComponent);

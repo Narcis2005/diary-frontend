@@ -45,7 +45,7 @@ export const FooterLogoContainer = styled.div`
     }
 `;
 export const FooterImageContainer = styled.div`
-    width: 40%;
+    width: 30%;
     height: auto;
     position: relative;
     padding-bottom: 10px;
