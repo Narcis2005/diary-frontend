@@ -31,6 +31,7 @@ export const formatStringsInSubstringsWithNWords = (string: string, n: number): 
     }
     return stringsFormated;
 };
+
 const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
     const formatedContent = data.map((content) => {
         return { content: formatStringsInSubstringsWithNWords(content.content, 130), date: content.date };
@@ -69,7 +70,26 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
         content: IPageContent[];
     }
     const [dataByDate, setDataByDate] = useState<IDateByDate[]>(formatedContent);
-    const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>, index: number, date: Date) => {
+    const [newPageData, setNewPageData] = useState<IDateByDate>({date: new Date(), content: [{content: "", id: 1}]});
+    const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>, index: number, date: Date, isNewPage: boolean) => {
+        if (isNewPage) {
+        console.log(index);
+
+            setNewPageData((prevDataByDate) => {
+                return  {
+                        ...prevDataByDate,
+                        content: prevDataByDate.content.map((content) => {
+                            if (content.id === index) {
+                                return { ...content, content: e.target.value }; 
+                            }
+                            return content;
+                        }),
+                    };
+            
+                }
+            );
+            return;
+        }
         setDataByDate((prevDataByDate) =>
             prevDataByDate.map((newData) => {
                 if (date === newData.date) {
@@ -77,7 +97,7 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                         ...newData,
                         content: newData.content.map((content) => {
                             if (content.id === index) {
-                                return { ...content, content: e.target.value };
+                                return { ...content, content: e.target.value }; 
                             }
                             return content;
                         }),
@@ -95,7 +115,7 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                 content: oneDataByDate.content.map((content) => content.content).join(),
             };
         });
-        console.log(dataToSend);
+        console.log([...dataToSend, {...newPageData, content: newPageData.content[0].content}]);
     };
     const [currentPage, setCurrentPage] = useState(1);
     const onChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,6 +125,17 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
         setCurrentPage(nr);
     };
     let indexOfPage = 1;
+    const isTodayANewDay =  () => {
+        const today = new Date();
+        if (
+            today.getFullYear() === data[data.length-1].date.getFullYear() &&
+            today.getMonth() === data[data.length-1].date.getMonth() &&
+            today.getDate() === data[data.length-1].date.getDate()
+          ) {
+            return false;
+          }
+          return true;
+    };
     return (
         <>
             <JournalContainer>
@@ -120,6 +151,13 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                                 />
                             ));
                         })}
+                        {isTodayANewDay() && (
+                            <SmallIndicativePage 
+                            pageNumber={pageNumber++}
+                            selectedNumber={currentPage}
+                            onChange={onChangePage}
+                            />
+                        )}
                     </IndicativePageForm>
                 </SidebarContainer>
                 <PagesContainer>
@@ -128,14 +166,26 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                             <PageComponent
                                 key={index}
                                 onChange={onChange}
-                                index={indexOfPage++}
+                                numberOfPage={indexOfPage++}
+                                index={index+1}
                                 content={content.content}
                                 date={data.date}
                                 currentPage={currentPage}
                                 change={changePageOnScroll}
+                                isNewPage={false}
                             />
                         ));
                     })}
+                    {isTodayANewDay() && (<PageComponent 
+                                onChange={onChange}
+                                numberOfPage={indexOfPage++}
+                                content={newPageData.content[0].content}
+                                index={1}
+                                date={new Date()}
+                                currentPage={currentPage}
+                                change={changePageOnScroll}
+                                isNewPage={true}
+                    />)}
                     <SavebuttonContainer>
                         <SaveButton onClick={handleSave}>Save Journal</SaveButton>
                     </SavebuttonContainer>

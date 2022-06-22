@@ -48,6 +48,7 @@ const ProfileComponent = ({
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserData((prevData) => ({ ...prevData, [e.target.name]: e.target.value, changesWereMade: true }));
     };
+    //The input element is display none, for styling reasons
     const inputRef = useRef<HTMLInputElement>(null);
     const clickInput = () => {
         inputRef.current && inputRef.current.click();

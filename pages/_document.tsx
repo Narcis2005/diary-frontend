@@ -14,11 +14,12 @@ export default class MyDocument extends Document {
                 });
 
             const initialProps = await Document.getInitialProps(ctx);
+            let key = 0;
             return {
                 ...initialProps,
                 styles: [
                     // A random hardcoded key stops the warning in console
-                    <Fragment key="something">
+                    <Fragment key={key++}>
                         {initialProps.styles}
                         {sheet.getStyleElement()}
                     </Fragment>,

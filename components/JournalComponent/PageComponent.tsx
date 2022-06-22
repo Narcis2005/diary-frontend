@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import {
     PageContainer,
@@ -7,34 +7,49 @@ import {
     WrritenAtJournal,
     Page,
     TextAreaContainer,
+    PageNumber,
+    PageNumberContainer,
 } from "./JournalComponents";
 export interface IPageComponent {
     date: Date;
     content: string;
     index: number;
-    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>, index: number, date: Date) => void;
+    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>, index: number, date: Date, isNewPage: boolean) => void;
     currentPage: number;
     change: (nr: number) => void;
+    numberOfPage: number;
+    isNewPage: boolean;
 }
 // eslint-disable-next-line react/display-name
-const PageComponent = ({ date, content, onChange, index, currentPage, change }: IPageComponent) => {
+const PageComponent = ({ date, content, onChange, index, currentPage, change, numberOfPage, isNewPage }: IPageComponent) => {
     const { ref, inView } = useInView({ threshold: 0.5 });
+    const pageNumberRef = useRef<HTMLDivElement>(null);
+    const [initialTextAreaHeight, setInitialTextAreaHeight] = useState(0);
+    const [isInitialCall, setIsInitialCall] = useState(true);
     const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        if (isInitialCall) {
+            console.log("fdfdsfds");
+            setInitialTextAreaHeight( e.target.scrollHeight);
+            setIsInitialCall(false);
+        }
         e.target.style.height = "inherit";
         e.target.style.height = `${e.target.scrollHeight}px`;
-
-        onChange(e, index, date);
+        // console.log(initialTextAreaHeight);
+        if(pageNumberRef.current && !isInitialCall) {
+         pageNumberRef.current.style.marginTop = `${e.target.scrollHeight - initialTextAreaHeight}px`;
+        }
+        onChange(e, index, date, isNewPage);
     };
     const containerRef = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
     useEffect(() => {
-        if (currentPage === index && inView === false) {
+        if (currentPage === numberOfPage && inView === false) {
             containerRef.current?.scrollIntoView(true);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
     useEffect(() => {
         if (inView === true) {
-            change(index);
+            change(numberOfPage);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inView]);
@@ -56,6 +71,9 @@ const PageComponent = ({ date, content, onChange, index, currentPage, change }: 
             <TextAreaContainer>
                 <Page value={content} onChange={handleOnChange}></Page>
             </TextAreaContainer>
+            <PageNumberContainer ref={pageNumberRef}>
+                <PageNumber >{numberOfPage}</PageNumber>
+            </PageNumberContainer>
         </PageContainer>
     );
 };

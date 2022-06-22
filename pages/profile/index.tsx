@@ -8,6 +8,7 @@ const Profile = () => {
         fullName: "Chirilov Narcis",
         imageURL: "/pozaCuMine.jpg",
     };
+    
     return (
         <>
             <DefaultContainer>

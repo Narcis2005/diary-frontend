@@ -67,7 +67,7 @@ export const PageContainer = styled.div`
     overflow-x: hidden;
 `;
 export const TextAreaContainer = styled.div`
-    height: 95%;
+    height: 88%;
 `;
 export const Page = styled.textarea`
     /* max-height: 1000vh; */
@@ -168,4 +168,12 @@ export const SavebuttonContainer = styled.div`
 `;
 export const SaveButton = styled(Button)`
     width: 150px;
+`;
+export const PageNumberContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+`;
+export const PageNumber = styled.p`
+    font-size: 1.5rem;
 `;
