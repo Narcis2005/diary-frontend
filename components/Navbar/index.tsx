@@ -27,15 +27,16 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
     const navContainerRef = useRef<HTMLHeadingElement>(null);
+    //If the click is outside the nav, close the mobile nav
     const checkOutsideClick = useCallback((e: MouseEvent) => {
         if (navContainerRef.current && !navContainerRef.current.contains(e.target as Node)) {
             setIsMobileMenuOpen(false);
             setShow(false);
         }
     }, []);
+    //in test, router is undefined
     const [pathname, setPathname] = useState("");
     const router = useRouter();
-    //in test, router is undefined
     useEffect(() => {
         if (router?.isReady) {
             setPathname(router.pathname);
@@ -128,13 +129,13 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                                             />
                                         </ProfileImageContainer>
                                         <DropdownMenu show={show}>
-                                            <DropdownItem>
+                                            <DropdownItem onClick={handleDropdownMenuClick}>
                                                 <Link href="/profile">Profile</Link>
                                             </DropdownItem>
-                                            <DropdownItem>
+                                            <DropdownItem onClick={handleDropdownMenuClick}>
                                                 <Link href="/journal">Write</Link>
                                             </DropdownItem>
-                                            <DropdownItem>
+                                            <DropdownItem onClick={handleDropdownMenuClick}> 
                                                 <Link href="/logout">Logout</Link>
                                             </DropdownItem>
                                         </DropdownMenu>

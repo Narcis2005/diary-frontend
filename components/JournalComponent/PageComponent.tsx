@@ -19,9 +19,10 @@ export interface IPageComponent {
     change: (nr: number) => void;
     numberOfPage: number;
     isNewPage: boolean;
+    placeholder?: string;
 }
 // eslint-disable-next-line react/display-name
-const PageComponent = ({ date, content, onChange, index, currentPage, change, numberOfPage, isNewPage }: IPageComponent) => {
+const PageComponent = ({ date, content, onChange, index, currentPage, change, numberOfPage, isNewPage, placeholder }: IPageComponent) => {
     const { ref, inView } = useInView({ threshold: 0.5 });
     const pageNumberRef = useRef<HTMLDivElement>(null);
     const [initialTextAreaHeight, setInitialTextAreaHeight] = useState(0);
@@ -69,7 +70,7 @@ const PageComponent = ({ date, content, onChange, index, currentPage, change, nu
                 <WrritenAtJournal>{date.toLocaleDateString("en-US", options)}</WrritenAtJournal>
             </InfoContainerJournal>
             <TextAreaContainer>
-                <Page value={content} onChange={handleOnChange}></Page>
+                <Page value={content} onChange={handleOnChange} placeholder={placeholder}></Page>
             </TextAreaContainer>
             <PageNumberContainer ref={pageNumberRef}>
                 <PageNumber >{numberOfPage}</PageNumber>

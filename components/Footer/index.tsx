@@ -31,10 +31,7 @@ const Footer = () => {
                             <Link href="/contact">Contact</Link>
                         </FooterMenuItem>
                         <FooterMenuItem>
-                            <Link href="/about">Home</Link>
-                        </FooterMenuItem>
-                        <FooterMenuItem>
-                            <Link href="/security">Home</Link>
+                            <Link href="/about">About</Link>
                         </FooterMenuItem>
                     </FooterMenu>
                 </FooterMenuContainer>

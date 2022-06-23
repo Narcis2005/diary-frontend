@@ -131,6 +131,9 @@ export const ProfileLinkItem = styled.li`
     &:hover {
         opacity: 1;
     }
+    &> * {
+        display: block;
+    }
     @media (max-width: 920px) {
         font-size: 20px;
         margin: 15px 0;

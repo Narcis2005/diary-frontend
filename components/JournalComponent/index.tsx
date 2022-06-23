@@ -185,6 +185,7 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                                 currentPage={currentPage}
                                 change={changePageOnScroll}
                                 isNewPage={true}
+                                placeholder="Write what you did today in your today page!"
                     />)}
                     <SavebuttonContainer>
                         <SaveButton onClick={handleSave}>Save Journal</SaveButton>
