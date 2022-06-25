@@ -16,7 +16,7 @@ const ContactComponent = ({
     onSubmit,
 }: {
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-    value: { message: string; subject: string; email: string; fullname: string };
+    value: { message: string; subject: string; email: string; fullName: string };
     onSubmit: (e: React.FormEvent) => void;
 }) => {
     return (
@@ -32,12 +32,12 @@ const ContactComponent = ({
                 <ContactRightSideContainer>
                     <ContactForm onSubmit={onSubmit}>
                         <ContactLabelInputContainer>
-                            <Label htmlFor="fullname">Full Name</Label>
+                            <Label htmlFor="fullName">Full Name</Label>
                             <Input
-                                name="fullname"
+                                name="fullName"
                                 type="text"
                                 placeholder="John Doe"
-                                value={value.fullname}
+                                value={value.fullName}
                                 onChange={onChange}
                                 required
                             />

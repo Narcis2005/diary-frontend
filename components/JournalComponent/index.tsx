@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
     IndicativePageForm,
     JournalContainer,
@@ -39,6 +39,24 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
     let pageNumber = 1;
     const [show, setShow] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+
+    const sidebarRef = useRef<HTMLDivElement>(null);
+    const checkOutsideClick = useCallback((e: MouseEvent) => {
+        if (sidebarRef.current && !sidebarRef.current.contains(e.target as Node)) {
+            setShow(false);
+        }
+    }, []);
+    useEffect(() => {
+        document.addEventListener("mouseup", checkOutsideClick);
+    }, [checkOutsideClick]);
+
+    //I think it's not necessary to do this, knowing that the nav is always rendered
+    useEffect(() => {
+        return () => {
+            document.removeEventListener("mouseup", checkOutsideClick);
+        };
+    }, [checkOutsideClick]);
+
     const controlSidebar = useCallback(() => {
         if (typeof window !== "undefined") {
             if (window.scrollY > lastScrollY) {
@@ -70,24 +88,23 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
         content: IPageContent[];
     }
     const [dataByDate, setDataByDate] = useState<IDateByDate[]>(formatedContent);
-    const [newPageData, setNewPageData] = useState<IDateByDate>({date: new Date(), content: [{content: "", id: 1}]});
+    const [newPageData, setNewPageData] = useState<IDateByDate>({
+        date: new Date(),
+        content: [{ content: "", id: 1 }],
+    });
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>, index: number, date: Date, isNewPage: boolean) => {
         if (isNewPage) {
-        console.log(index);
-
             setNewPageData((prevDataByDate) => {
-                return  {
-                        ...prevDataByDate,
-                        content: prevDataByDate.content.map((content) => {
-                            if (content.id === index) {
-                                return { ...content, content: e.target.value }; 
-                            }
-                            return content;
-                        }),
-                    };
-            
-                }
-            );
+                return {
+                    ...prevDataByDate,
+                    content: prevDataByDate.content.map((content) => {
+                        if (content.id === index) {
+                            return { ...content, content: e.target.value };
+                        }
+                        return content;
+                    }),
+                };
+            });
             return;
         }
         setDataByDate((prevDataByDate) =>
@@ -97,7 +114,7 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                         ...newData,
                         content: newData.content.map((content) => {
                             if (content.id === index) {
-                                return { ...content, content: e.target.value }; 
+                                return { ...content, content: e.target.value };
                             }
                             return content;
                         }),
@@ -115,7 +132,7 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                 content: oneDataByDate.content.map((content) => content.content).join(),
             };
         });
-        console.log([...dataToSend, {...newPageData, content: newPageData.content[0].content}]);
+        console.log([...dataToSend, { ...newPageData, content: newPageData.content[0].content }]);
     };
     const [currentPage, setCurrentPage] = useState(1);
     const onChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,21 +142,21 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
         setCurrentPage(nr);
     };
     let indexOfPage = 1;
-    const isTodayANewDay =  () => {
+    const isTodayANewDay = () => {
         const today = new Date();
         if (
-            today.getFullYear() === data[data.length-1].date.getFullYear() &&
-            today.getMonth() === data[data.length-1].date.getMonth() &&
-            today.getDate() === data[data.length-1].date.getDate()
-          ) {
+            today.getFullYear() === data[data.length - 1].date.getFullYear() &&
+            today.getMonth() === data[data.length - 1].date.getMonth() &&
+            today.getDate() === data[data.length - 1].date.getDate()
+        ) {
             return false;
-          }
-          return true;
+        }
+        return true;
     };
     return (
         <>
             <JournalContainer>
-                <SidebarContainer show={show}>
+                <SidebarContainer show={show} ref={sidebarRef}>
                     <IndicativePageForm>
                         {dataByDate.map((data) => {
                             return data.content.map((content, index) => (
@@ -152,10 +169,10 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                             ));
                         })}
                         {isTodayANewDay() && (
-                            <SmallIndicativePage 
-                            pageNumber={pageNumber++}
-                            selectedNumber={currentPage}
-                            onChange={onChangePage}
+                            <SmallIndicativePage
+                                pageNumber={pageNumber++}
+                                selectedNumber={currentPage}
+                                onChange={onChangePage}
                             />
                         )}
                     </IndicativePageForm>
@@ -167,7 +184,7 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                                 key={index}
                                 onChange={onChange}
                                 numberOfPage={indexOfPage++}
-                                index={index+1}
+                                index={index + 1}
                                 content={content.content}
                                 date={data.date}
                                 currentPage={currentPage}
@@ -176,17 +193,19 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                             />
                         ));
                     })}
-                    {isTodayANewDay() && (<PageComponent 
-                                onChange={onChange}
-                                numberOfPage={indexOfPage++}
-                                content={newPageData.content[0].content}
-                                index={1}
-                                date={new Date()}
-                                currentPage={currentPage}
-                                change={changePageOnScroll}
-                                isNewPage={true}
-                                placeholder="Write what you did today in your today page!"
-                    />)}
+                    {isTodayANewDay() && (
+                        <PageComponent
+                            onChange={onChange}
+                            numberOfPage={indexOfPage++}
+                            content={newPageData.content[0].content}
+                            index={1}
+                            date={new Date()}
+                            currentPage={currentPage}
+                            change={changePageOnScroll}
+                            isNewPage={true}
+                            placeholder="Write what you did today in your today page!"
+                        />
+                    )}
                     <SavebuttonContainer>
                         <SaveButton onClick={handleSave}>Save Journal</SaveButton>
                     </SavebuttonContainer>

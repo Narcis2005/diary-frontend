@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
+import { useAppDispatch } from "../../redux/hooks";
+import { logoutUser } from "../../redux/slices/auth";
 import { Button, Input, Label } from "../FormComponents";
 import {
     ProfileContainer,
@@ -58,6 +60,10 @@ const ProfileComponent = ({
             setImageName(e.target.files[0].name);
         }
     };
+    const dispatch = useAppDispatch();
+    const Logout = () => {
+        void dispatch(logoutUser());
+    };
     return (
         <>
             <ProfileContainer>
@@ -79,8 +85,8 @@ const ProfileComponent = ({
                         <ProfileLinkItem>
                             <Link href="/profile/delete">Delete Account</Link>
                         </ProfileLinkItem>
-                        <ProfileLinkItem>
-                            <Link href="/profile/logout">Logout</Link>
+                        <ProfileLinkItem onClick={Logout}>
+                            <Link href="/">Logout</Link>
                         </ProfileLinkItem>
                     </ProfileLinksContainer>
                 </ProfileLeftSide>

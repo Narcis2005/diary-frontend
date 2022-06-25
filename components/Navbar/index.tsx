@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useAppDispatch } from "../../redux/hooks";
+import { logoutUser } from "../../redux/slices/auth";
 import {
     Nav,
     LoginButton,
@@ -56,6 +58,10 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
     const handleDropdownMenuClick = () => {
         setShow((prevShow) => !prevShow);
     };
+    const dispatch = useAppDispatch();
+    const Logout = () => {
+        void dispatch(logoutUser());
+    };
     return (
         <NavbarContainer ref={navContainerRef}>
             <NavbarInnerContainer>
@@ -106,14 +112,14 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
 
                         {profileImageURL && (
                             <>
-                                <NavItem isCurrentPage={pathname === "/"} showOnMobile showOnDesktop={false}>
+                                <NavItem isCurrentPage={pathname === "/profile"} showOnMobile showOnDesktop={false}>
                                     <Link href={"/profile"}>Profile</Link>
                                 </NavItem>
-                                <NavItem isCurrentPage={pathname === "/about"} showOnMobile showOnDesktop={false}>
+                                <NavItem isCurrentPage={pathname === "/journal"} showOnMobile showOnDesktop={false}>
                                     <Link href={"/journal"}>Write</Link>
                                 </NavItem>
-                                <NavItem isCurrentPage={pathname === "/contact"} showOnMobile showOnDesktop={false}>
-                                    <Link href={"/logout"}>Logout</Link>
+                                <NavItem isCurrentPage={false} showOnMobile showOnDesktop={false} onClick={Logout}>
+                                    <Link href={"/"}>Logout</Link>
                                 </NavItem>
 
                                 <NavItem isCurrentPage={true} showOnMobile={false} showOnDesktop={true}>
@@ -135,8 +141,13 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                                             <DropdownItem onClick={handleDropdownMenuClick}>
                                                 <Link href="/journal">Write</Link>
                                             </DropdownItem>
-                                            <DropdownItem onClick={handleDropdownMenuClick}> 
-                                                <Link href="/logout">Logout</Link>
+                                            <DropdownItem
+                                                onClick={() => {
+                                                    handleDropdownMenuClick();
+                                                    Logout();
+                                                }}
+                                            >
+                                                <Link href="/">Logout</Link>
                                             </DropdownItem>
                                         </DropdownMenu>
                                     </DropdownContainer>

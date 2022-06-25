@@ -1,14 +1,17 @@
 import ProfileComponent from "../../components/ProfileComponent";
 import DefaultContainer from "../../containers/DefaultContaienr";
+import { useAppSelector } from "../../redux/hooks";
+import withAuth from "../../utils/withAuth";
 
 const Profile = () => {
+    const user = useAppSelector((state) => state.user);
     const data = {
-        username: "Narcis",
-        email: "chirilov.narcis@yahoo.ro",
-        fullName: "Chirilov Narcis",
-        imageURL: "/pozaCuMine.jpg",
+        username: user.result.username,
+        email: user.result.email,
+        fullName: user.result.fullName,
+        imageURL: "/profilePlaceholder.png",
     };
-    
+
     return (
         <>
             <DefaultContainer>
@@ -17,4 +20,4 @@ const Profile = () => {
         </>
     );
 };
-export default Profile;
+export default withAuth(Profile);

@@ -11,13 +11,14 @@
     "test": "jest"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
+    "axios": "^0.27.2",
     "next": "12.1.5",
     "prettier": "^2.6.2",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-intersection-observer": "^9.3.3",
     "react-redux": "^8.0.1",
-    "redux-toolkit": "^1.1.2",
     "sharp": "^0.30.6",
     "styled-components": "^5.3.5"
   },

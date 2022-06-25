@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import JournalComponent from "../../components/JournalComponent";
 import DefaultContainer from "../../containers/DefaultContaienr";
+import withAuth from "../../utils/withAuth";
 
 const Journal = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
-      }, []);
+    }, []);
     return (
         <>
             <DefaultContainer>
@@ -28,4 +29,4 @@ const Journal = () => {
     );
 };
 
-export default Journal;
+export default withAuth(Journal);

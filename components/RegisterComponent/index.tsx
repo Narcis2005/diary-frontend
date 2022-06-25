@@ -4,23 +4,25 @@ const RegisterComponent = ({
     onChange,
     value,
     onSubmit,
+    error,
 }: {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    value: { username: string; password: string; email: string; fullname: string };
+    value: { username: string; password: string; email: string; fullName: string };
     onSubmit: (e: React.FormEvent) => void;
+    error: string | null;
 }) => {
     return (
         <>
             <Form onSubmit={onSubmit}>
                 <Title>Register</Title>
                 <LabelinputContainer>
-                    <Label htmlFor="fullname">Full name</Label>
+                    <Label htmlFor="fullName">Full name</Label>
                     <Input
-                        name="fullname"
+                        name="fullName"
                         type="text"
                         placeholder="John Doe"
                         required
-                        value={value.fullname}
+                        value={value.fullName}
                         onChange={onChange}
                     />
                 </LabelinputContainer>
@@ -58,7 +60,7 @@ const RegisterComponent = ({
                     />
                 </LabelinputContainer>
                 <Button>Sign up</Button>
-                <Message>Your account was created</Message>
+                {error && <Message>{error}</Message>}
             </Form>
         </>
     );

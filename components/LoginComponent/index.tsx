@@ -5,10 +5,12 @@ const LoginComponent = ({
     onChange,
     value,
     onSubmit,
+    error,
 }: {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value: { username: string; password: string };
     onSubmit: (e: React.FormEvent) => void;
+    error: string | null;
 }) => {
     return (
         <>
@@ -37,7 +39,7 @@ const LoginComponent = ({
                     />
                 </LabelinputContainer>
                 <Button type="submit">Login</Button>
-                <Message>You were succesfully logged in</Message>
+                {error && <Message>{error}</Message>}
             </Form>
         </>
     );

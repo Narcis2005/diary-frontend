@@ -22,29 +22,37 @@ export interface IPageComponent {
     placeholder?: string;
 }
 // eslint-disable-next-line react/display-name
-const PageComponent = ({ date, content, onChange, index, currentPage, change, numberOfPage, isNewPage, placeholder }: IPageComponent) => {
+const PageComponent = ({
+    date,
+    content,
+    onChange,
+    index,
+    currentPage,
+    change,
+    numberOfPage,
+    isNewPage,
+    placeholder,
+}: IPageComponent) => {
     const { ref, inView } = useInView({ threshold: 0.5 });
     const pageNumberRef = useRef<HTMLDivElement>(null);
     const [initialTextAreaHeight, setInitialTextAreaHeight] = useState(0);
     const [isInitialCall, setIsInitialCall] = useState(true);
     const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         if (isInitialCall) {
-            console.log("fdfdsfds");
-            setInitialTextAreaHeight( e.target.scrollHeight);
+            setInitialTextAreaHeight(e.target.scrollHeight);
             setIsInitialCall(false);
         }
         e.target.style.height = "inherit";
         e.target.style.height = `${e.target.scrollHeight}px`;
-        // console.log(initialTextAreaHeight);
-        if(pageNumberRef.current && !isInitialCall) {
-         pageNumberRef.current.style.marginTop = `${e.target.scrollHeight - initialTextAreaHeight}px`;
+        if (pageNumberRef.current && !isInitialCall) {
+            pageNumberRef.current.style.marginTop = `${e.target.scrollHeight - initialTextAreaHeight}px`;
         }
         onChange(e, index, date, isNewPage);
     };
     const containerRef = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
     useEffect(() => {
         if (currentPage === numberOfPage && inView === false) {
-            containerRef.current?.scrollIntoView(true);
+            containerRef.current?.scrollIntoView({ behavior: "smooth" });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
@@ -61,7 +69,7 @@ const PageComponent = ({ date, content, onChange, index, currentPage, change, nu
         },
         [ref],
     );
-    
+
     const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" } as const; //ts throws some type error
     return (
         <PageContainer ref={setRefs}>
@@ -73,7 +81,7 @@ const PageComponent = ({ date, content, onChange, index, currentPage, change, nu
                 <Page value={content} onChange={handleOnChange} placeholder={placeholder}></Page>
             </TextAreaContainer>
             <PageNumberContainer ref={pageNumberRef}>
-                <PageNumber >{numberOfPage}</PageNumber>
+                <PageNumber>{numberOfPage}</PageNumber>
             </PageNumberContainer>
         </PageContainer>
     );
