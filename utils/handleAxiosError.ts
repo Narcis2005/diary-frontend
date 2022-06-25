@@ -1,7 +1,9 @@
 import { AxiosError } from "axios";
-
+interface IError {
+    message: string;
+}
 const handleAxiosError = (error: Error): string => {
-    const err = error as AxiosError;
+    const err = error as AxiosError<IError>;
     if (err.response) {
         if (err.response.data.message === "The session ended. Please reconnect") return "return";
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return

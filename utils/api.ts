@@ -16,7 +16,7 @@ export interface IResult {
 }
 export interface ICall {
     status: "success" | "failed" | "idle" | "loading";
-    error: unknown;
+    error: any;
     result: IResult | null;
 }
 
