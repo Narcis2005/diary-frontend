@@ -22,8 +22,8 @@ jobs:
         cache: 'npm'
     - name: install dependencies
       run: npm ci
-    - name: test the code
-      run: npm test
+#   - name: test the code
+#      run: npm test
     - name: build the new image
       run: docker build -t diary-frontend-docker .
     - name: remove the previous container 
