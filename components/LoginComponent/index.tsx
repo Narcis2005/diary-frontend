@@ -1,16 +1,19 @@
+import Link from "next/link";
 import React from "react";
-import { Button, Form, Input, Label, LabelinputContainer, Message, Title } from "../FormComponents";
+import { Button, Form, Input, Label, LabelinputContainer, Message, RedirectText, RedirectTextContainer, Title } from "../FormComponents";
 
 const LoginComponent = ({
     onChange,
     value,
     onSubmit,
     error,
+    isLoading,
 }: {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value: { username: string; password: string };
     onSubmit: (e: React.FormEvent) => void;
     error: string | null;
+    isLoading: boolean;
 }) => {
     return (
         <>
@@ -38,7 +41,12 @@ const LoginComponent = ({
                         onChange={onChange}
                     />
                 </LabelinputContainer>
-                <Button type="submit">Login</Button>
+                <Button type="submit">{isLoading ? "Loading..." : "Login"}</Button>
+                <RedirectTextContainer>
+                    <Link href="/register" passHref>
+                        <RedirectText>You dont have an account? Create one here</RedirectText>
+                    </Link>
+                </RedirectTextContainer>
                 {error && <Message>{error}</Message>}
             </Form>
         </>

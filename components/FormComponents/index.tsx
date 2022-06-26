@@ -69,8 +69,18 @@ export const Title = styled.h2`
 export const Message = styled.p`
     background: darkred;
     color: white;
-    padding: 5px 10px;
+    padding: 10px 10px;
     font-size: 18px;
     margin-top: 6%;
     font-weight: 700;
+    border-radius: 10px;
+`;
+export const RedirectTextContainer = styled.div`
+    padding: 10px 0px;
+    cursor: pointer;
+    opacity: 0.8;
+`;
+export const RedirectText = styled.p`
+   text-decoration: underline;
+   font-size: 18px;
 `;

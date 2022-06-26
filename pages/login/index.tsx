@@ -24,7 +24,7 @@ const Login: NextPage = () => {
         <>
             <DefaultContainer>
                 <BackgroundImage>
-                    <LoginComponent value={data} onChange={onChange} onSubmit={onSubmit} error={user.error?.message} />
+                    <LoginComponent value={data} onChange={onChange} onSubmit={onSubmit} error={user.error?.message} isLoading={user.status === "loading"}/>
                 </BackgroundImage>
             </DefaultContainer>
         </>

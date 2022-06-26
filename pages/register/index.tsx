@@ -25,6 +25,7 @@ const Register = () => {
     const dispatch = useAppDispatch();
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        setRequestData({ status: "loading", result: null, error: null });
         api.post<IResult>("/auth/register", data)
             .then((res) => {
                 setRequestData({ status: "succesfull", result: res.data, error: null });
@@ -41,7 +42,7 @@ const Register = () => {
         <>
             <DefaultContainer>
                 <BackgroundImage>
-                    <RegisterComponent value={data} onChange={onChange} onSubmit={onSubmit} error={requestData.error} />
+                    <RegisterComponent value={data} onChange={onChange} onSubmit={onSubmit} error={requestData.error} isLoading={requestData.status === "loading"}/>
                 </BackgroundImage>
             </DefaultContainer>
         </>

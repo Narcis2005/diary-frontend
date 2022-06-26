@@ -1,15 +1,18 @@
-import { Button, Form, Input, Label, LabelinputContainer, Message, Title } from "../FormComponents";
+import Link from "next/link";
+import { Button, Form, Input, Label, LabelinputContainer, Message, RedirectText, RedirectTextContainer, Title } from "../FormComponents";
 
 const RegisterComponent = ({
     onChange,
     value,
     onSubmit,
     error,
+    isLoading
 }: {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value: { username: string; password: string; email: string; fullName: string };
     onSubmit: (e: React.FormEvent) => void;
     error: string | null;
+    isLoading: boolean;
 }) => {
     return (
         <>
@@ -59,7 +62,12 @@ const RegisterComponent = ({
                         onChange={onChange}
                     />
                 </LabelinputContainer>
-                <Button>Sign up</Button>
+                <Button>{isLoading ? "Loading..." : "Register"}</Button>
+                <RedirectTextContainer>
+                    <Link href="/loading" passHref>
+                        <RedirectText>You aleardy have an account? Sign in here!</RedirectText>
+                    </Link>
+                </RedirectTextContainer>
                 {error && <Message>{error}</Message>}
             </Form>
         </>
