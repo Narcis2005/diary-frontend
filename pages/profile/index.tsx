@@ -9,7 +9,7 @@ const Profile = () => {
         username: user.result.username,
         email: user.result.email,
         fullName: user.result.fullName,
-        imageURL: "/profilePlaceholder.png",
+        imageURL: user.result.imageURL,
     };
 
     return (

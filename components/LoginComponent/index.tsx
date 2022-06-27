@@ -1,6 +1,16 @@
 import Link from "next/link";
 import React from "react";
-import { Button, Form, Input, Label, LabelinputContainer, Message, RedirectText, RedirectTextContainer, Title } from "../FormComponents";
+import {
+    Button,
+    Form,
+    Input,
+    Label,
+    LabelinputContainer,
+    Message,
+    RedirectText,
+    RedirectTextContainer,
+    Title,
+} from "../FormComponents";
 
 const LoginComponent = ({
     onChange,

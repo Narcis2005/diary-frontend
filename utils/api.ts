@@ -42,7 +42,7 @@ api.interceptors.response.use(
         return res;
     },
     (err) => {
-        if (err.response.data.message === "Please login in order to acces this") {
+        if (err.response.data?.message === "Please login in order to acces this") {
             void store.dispatch(logoutUser());
             return;
         }

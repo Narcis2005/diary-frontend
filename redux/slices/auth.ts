@@ -2,8 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { AxiosError } from "axios";
 import api from "../../utils/api";
+import handleAxiosError from "../../utils/handleAxiosError";
 import { userInterface, KnownError } from "../types/auth";
 
 export const logoutUser = createAsyncThunk("auth/logoutUser", () => {
@@ -18,20 +19,15 @@ export const getUserByToken = createAsyncThunk<userInterface, void, { rejectValu
     async (_, thunkApi) => {
         try {
             if (!localStorage.getItem("token")) {
-                throw "failed to login";
+                throw { message: "No token present" };
             }
             const result = await api.get(`/auth/getuser`);
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return result.data;
         } catch (error) {
-            console.log(error);
-            // check if the error was thrown from axios
-            if (axios.isAxiosError(error)) {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                const errorData = error.response?.data as KnownError;
-                return thunkApi.rejectWithValue(errorData);
-            }
-            throw error;
+            const err = error as Error | AxiosError;
+            const errorData = handleAxiosError(err);
+            return thunkApi.rejectWithValue({ message: errorData });
         }
     },
 );
@@ -48,13 +44,9 @@ export const loginUser = createAsyncThunk<
         const result = await api.post(`/auth/login`, profile);
         return result.data;
     } catch (error) {
-        // check if the error was thrown from axios
-        if (axios.isAxiosError(error)) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            const errorData = error.response?.data as KnownError;
-            return thunkApi.rejectWithValue(errorData);
-        }
-        throw error;
+        const err = error as Error | AxiosError;
+        const errorData = handleAxiosError(err);
+        return thunkApi.rejectWithValue({ message: errorData });
     }
 });
 interface stateInterface {

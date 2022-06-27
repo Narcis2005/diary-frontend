@@ -143,3 +143,6 @@ export const ProfileLinkItem = styled.li`
         margin: 10px 0;
     }
 `;
+export const ErrorText = styled.p`
+    background: red;
+`;

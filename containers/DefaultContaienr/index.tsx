@@ -8,8 +8,7 @@ const DefaultContainer = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <>
-            {user.status === "success" && <Navbar profileImageURL="/profilePlaceholder.png" />}
-            {user.status === "failed" && <Navbar />}
+            {user.status === "success" ? <Navbar profileImageURL={user.result.imageURL} /> : <Navbar />}
             {children}
             <Footer />
         </>

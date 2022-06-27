@@ -19,12 +19,24 @@ const Login: NextPage = () => {
         void dispatch(loginUser(data));
     };
     const user = useAppSelector((state) => state.user);
-
+    const error = (): string | null => {
+        if (user.error && user.error.message && user.error.message !== "No token present") {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            return user.error.message;
+        }
+        return null;
+    };
     return (
         <>
             <DefaultContainer>
                 <BackgroundImage>
-                    <LoginComponent value={data} onChange={onChange} onSubmit={onSubmit} error={user.error?.message} isLoading={user.status === "loading"}/>
+                    <LoginComponent
+                        value={data}
+                        onChange={onChange}
+                        onSubmit={onSubmit}
+                        error={error()}
+                        isLoading={user.status === "loading"}
+                    />
                 </BackgroundImage>
             </DefaultContainer>
         </>

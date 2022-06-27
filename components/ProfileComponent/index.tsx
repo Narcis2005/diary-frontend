@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { useAppDispatch } from "../../redux/hooks";
-import { logoutUser } from "../../redux/slices/auth";
-import { Button, Input, Label } from "../FormComponents";
+import { getUserByToken, logoutUser } from "../../redux/slices/auth";
+import api from "../../utils/api";
+import handleAxiosError from "../../utils/handleAxiosError";
+import { Button, Input, Label, Message } from "../FormComponents";
 import {
     ProfileContainer,
     ProfileLeftSide,
@@ -35,6 +38,7 @@ const ProfileComponent = ({
     email: string;
 }) => {
     const [imageName, setImageName] = useState("No file choosen");
+    const [file, setFile] = useState<File>();
     interface IUserData {
         username: string;
         fullName: string;
@@ -50,6 +54,7 @@ const ProfileComponent = ({
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserData((prevData) => ({ ...prevData, [e.target.name]: e.target.value, changesWereMade: true }));
     };
+
     //The input element is display none, for styling reasons
     const inputRef = useRef<HTMLInputElement>(null);
     const clickInput = () => {
@@ -58,12 +63,49 @@ const ProfileComponent = ({
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             setImageName(e.target.files[0].name);
+            setFile(e.target.files[0]);
+            setUserData((prevData) => ({ ...prevData, changesWereMade: true }));
         }
     };
     const dispatch = useAppDispatch();
     const Logout = () => {
         void dispatch(logoutUser());
     };
+    const [reqData, setReqData] = useState({ status: "idle", error: "" });
+    const onSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setReqData({ status: "loading", error: "" });
+        let photoRes;
+        if (file) {
+            const formData = new FormData();
+            formData.append("file", file);
+            photoRes = await api.post("/upload", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+        }
+        let imageName = "";
+        if (photoRes && photoRes.data) {
+            imageName = photoRes.data as string;
+        }
+        api.put("/auth/update", {
+            username: userData.username,
+            email: userData.email,
+            fullName: userData.fullName,
+            imageName,
+        })
+            .then(() => {
+                setReqData({ status: "success", error: "" });
+                void dispatch(getUserByToken());
+            })
+            .catch((error: Error) => {
+                const err = handleAxiosError(error);
+                if (err === "return") return;
+                setReqData({ status: "failed", error: err });
+            });
+    };
+
     return (
         <>
             <ProfileContainer>
@@ -93,7 +135,7 @@ const ProfileComponent = ({
                 <ProfileRightSide>
                     <ProfileSection>
                         <ProfileSectionTitle>Account details</ProfileSectionTitle>
-                        <ProfileForm>
+                        <ProfileForm onSubmit={onSubmit}>
                             <FormGroup>
                                 <LabelinputContainerProfile>
                                     <Label>Full name</Label>
@@ -141,9 +183,14 @@ const ProfileComponent = ({
                             </FormGroup>
                             <FormGroup>
                                 <Button disabled={!userData.changesWereMade} data-testid="button-profile">
-                                    Save
+                                    {reqData.status === "loading" ? "Loading..." : "Save"}
                                 </Button>
                             </FormGroup>
+                            {reqData.status === "failed" && (
+                                <FormGroup>
+                                    <Message>{reqData.error}</Message>
+                                </FormGroup>
+                            )}
                         </ProfileForm>
                     </ProfileSection>
                 </ProfileRightSide>

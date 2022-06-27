@@ -1,12 +1,22 @@
 import Link from "next/link";
-import { Button, Form, Input, Label, LabelinputContainer, Message, RedirectText, RedirectTextContainer, Title } from "../FormComponents";
+import {
+    Button,
+    Form,
+    Input,
+    Label,
+    LabelinputContainer,
+    Message,
+    RedirectText,
+    RedirectTextContainer,
+    Title,
+} from "../FormComponents";
 
 const RegisterComponent = ({
     onChange,
     value,
     onSubmit,
     error,
-    isLoading
+    isLoading,
 }: {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value: { username: string; password: string; email: string; fullName: string };

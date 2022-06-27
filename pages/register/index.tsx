@@ -42,7 +42,13 @@ const Register = () => {
         <>
             <DefaultContainer>
                 <BackgroundImage>
-                    <RegisterComponent value={data} onChange={onChange} onSubmit={onSubmit} error={requestData.error} isLoading={requestData.status === "loading"}/>
+                    <RegisterComponent
+                        value={data}
+                        onChange={onChange}
+                        onSubmit={onSubmit}
+                        error={requestData.error}
+                        isLoading={requestData.status === "loading"}
+                    />
                 </BackgroundImage>
             </DefaultContainer>
         </>
