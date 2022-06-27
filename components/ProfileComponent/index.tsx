@@ -186,7 +186,7 @@ const ProfileComponent = ({
                                             ref={inputRef}
                                             onChange={handleFileChange}
                                             type="file"
-                                            accept="image/*"
+                                            accept="image/png, image/jpg, image/jpeg"
                                         />
                                     </FileUploadSelect>
                                 </FileUpload>
