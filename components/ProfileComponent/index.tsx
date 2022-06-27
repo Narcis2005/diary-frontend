@@ -72,38 +72,43 @@ const ProfileComponent = ({
         void dispatch(logoutUser());
     };
     const [reqData, setReqData] = useState({ status: "idle", error: "" });
-    const onSubmit = async (e: React.FormEvent) => {
+    const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setReqData({ status: "loading", error: "" });
         let photoRes;
         if (file) {
             const formData = new FormData();
             formData.append("file", file);
-            photoRes = await api.post("/upload", formData, {
+            api.post("/upload", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-            });
-        }
-        let imageName = "";
-        if (photoRes && photoRes.data) {
-            imageName = photoRes.data as string;
-        }
-        api.put("/auth/update", {
-            username: userData.username,
-            email: userData.email,
-            fullName: userData.fullName,
-            imageName,
-        })
-            .then(() => {
-                setReqData({ status: "success", error: "" });
-                void dispatch(getUserByToken());
             })
-            .catch((error: Error) => {
-                const err = handleAxiosError(error);
-                if (err === "return") return;
-                setReqData({ status: "failed", error: err });
-            });
+                .then((data) => {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    photoRes = data.data as string;
+                    api.put("/auth/update", {
+                        username: userData.username,
+                        email: userData.email,
+                        fullName: userData.fullName,
+                        imageName: photoRes,
+                    })
+                        .then(() => {
+                            setReqData({ status: "success", error: "" });
+                            void dispatch(getUserByToken());
+                        })
+                        .catch((error: Error) => {
+                            const err = handleAxiosError(error);
+                            if (err === "return") return;
+                            setReqData({ status: "failed", error: err });
+                        });
+                })
+                .catch((error: Error) => {
+                    const err = handleAxiosError(error);
+                    if (err === "return") return;
+                    setReqData({ status: "failed", error: err });
+                });
+        }
     };
 
     return (
@@ -177,7 +182,12 @@ const ProfileComponent = ({
                                     <FileUploadSelect onClick={clickInput}>
                                         <FileSelectButton>Choose Photo</FileSelectButton>
                                         <FileSelectName>{imageName}</FileSelectName>
-                                        <FileUploadInput ref={inputRef} onChange={handleFileChange} type="file" />
+                                        <FileUploadInput
+                                            ref={inputRef}
+                                            onChange={handleFileChange}
+                                            type="file"
+                                            accept="image/*"
+                                        />
                                     </FileUploadSelect>
                                 </FileUpload>
                             </FormGroup>
