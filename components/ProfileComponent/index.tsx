@@ -61,7 +61,7 @@ const ProfileComponent = ({
         inputRef.current && inputRef.current.click();
     };
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
+        if (e.target.files && e.target.files.length > 0) {
             setImageName(e.target.files[0].name);
             setFile(e.target.files[0]);
             setUserData((prevData) => ({ ...prevData, changesWereMade: true }));
@@ -123,6 +123,7 @@ const ProfileComponent = ({
                             height="200"
                             layout="responsive"
                             objectFit="cover"
+                            priority={true}
                         />
                     </ImageContainerProfile>
                     <ProfileLinksContainer>
@@ -143,7 +144,7 @@ const ProfileComponent = ({
                         <ProfileForm onSubmit={onSubmit}>
                             <FormGroup>
                                 <LabelinputContainerProfile>
-                                    <Label>Full name</Label>
+                                    <Label htmlFor="fullName">Full name</Label>
                                     <Input
                                         type="text"
                                         value={userData.fullName}
@@ -155,7 +156,7 @@ const ProfileComponent = ({
                             </FormGroup>
                             <FormGroup>
                                 <LabelinputContainerProfile>
-                                    <Label>Username</Label>
+                                    <Label htmlFor="username">Username</Label>
                                     <Input
                                         type="text"
                                         value={userData.username}
@@ -165,7 +166,7 @@ const ProfileComponent = ({
                                     />
                                 </LabelinputContainerProfile>
                                 <LabelinputContainerProfile>
-                                    <Label>Email</Label>
+                                    <Label htmlFor="email">Email</Label>
                                     <Input
                                         type="email"
                                         value={userData.email}
@@ -177,7 +178,7 @@ const ProfileComponent = ({
                             </FormGroup>
                             <FormGroup>
                                 <FileUpload>
-                                    <Label>Image</Label>
+                                    <Label htmlFor="file">Image</Label>
 
                                     <FileUploadSelect onClick={clickInput}>
                                         <FileSelectButton>Choose Photo</FileSelectButton>
@@ -185,6 +186,7 @@ const ProfileComponent = ({
                                         <FileUploadInput
                                             ref={inputRef}
                                             onChange={handleFileChange}
+                                            name="file"
                                             type="file"
                                             accept="image/png, image/jpg, image/jpeg"
                                         />

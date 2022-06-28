@@ -51,7 +51,7 @@ export const FooterImageContainer = styled.div`
     padding-bottom: 10px;
     opacity: 0.8;
 `;
-export const FooterCopyright = styled.h4`
+export const FooterCopyright = styled.h2`
     font-size: 1.2rem;
     opacity: 0.8;
 `;
