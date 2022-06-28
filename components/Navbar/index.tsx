@@ -75,7 +75,7 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                                     src="/logo1.svg"
                                     width={80}
                                     height={50}
-                                    priority = {true}
+                                    priority={true}
                                     layout="responsive"
                                     style={{ cursor: "pointer" }}
                                 />

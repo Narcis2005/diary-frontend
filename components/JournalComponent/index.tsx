@@ -1,4 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useAppDispatch } from "../../redux/hooks";
+import { getUserByToken } from "../../redux/slices/auth";
+import api from "../../utils/api";
+import handleAxiosError from "../../utils/handleAxiosError";
 import {
     IndicativePageForm,
     JournalContainer,
@@ -13,6 +17,7 @@ import SmallIndicativePage from "./SmallIndicativePage";
 interface IJournalComponent {
     content: string;
     date: Date;
+    id: number;
 }
 interface IPageContent {
     content: string;
@@ -33,9 +38,6 @@ export const formatStringsInSubstringsWithNWords = (string: string, n: number): 
 };
 
 const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
-    const formatedContent = data.map((content) => {
-        return { content: formatStringsInSubstringsWithNWords(content.content, 130), date: content.date };
-    });
     let pageNumber = 1;
     const [show, setShow] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
@@ -86,17 +88,32 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
     interface IDateByDate {
         date: Date;
         content: IPageContent[];
+        id: number;
+        changed: boolean;
     }
-    const [dataByDate, setDataByDate] = useState<IDateByDate[]>(formatedContent);
+    const [dataByDate, setDataByDate] = useState<IDateByDate[]>(
+        data.map((content) => {
+            return {
+                content: formatStringsInSubstringsWithNWords(content.content, 130),
+                date: content.date,
+                id: content.id,
+                changed: false,
+            };
+        }),
+    );
+    console.log(dataByDate);
     const [newPageData, setNewPageData] = useState<IDateByDate>({
         date: new Date(),
         content: [{ content: "", id: 1 }],
+        id: 1,
+        changed: false,
     });
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>, index: number, date: Date, isNewPage: boolean) => {
         if (isNewPage) {
             setNewPageData((prevDataByDate) => {
                 return {
                     ...prevDataByDate,
+                    changed: true,
                     content: prevDataByDate.content.map((content) => {
                         if (content.id === index) {
                             return { ...content, content: e.target.value };
@@ -112,6 +129,7 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                 if (date === newData.date) {
                     return {
                         ...newData,
+                        changed: true,
                         content: newData.content.map((content) => {
                             if (content.id === index) {
                                 return { ...content, content: e.target.value };
@@ -124,15 +142,47 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
             }),
         );
     };
+    interface IResult {
+        message: string;
+    }
+    interface IData {
+        status: "idle" | "loading" | "succesfull" | "failed";
+        result: IResult | null;
+        error: string | null;
+    }
+    const dispatch = useAppDispatch();
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [requestData, setRequestData] = useState<IData>({ status: "idle", result: null, error: null });
     const handleSave = (e: React.MouseEvent) => {
         e.preventDefault();
         const dataToSend = dataByDate.map((oneDataByDate) => {
             return {
                 date: oneDataByDate.date,
                 content: oneDataByDate.content.map((content) => content.content).join(),
+                id: oneDataByDate.id,
+                changed: oneDataByDate.changed,
+                isNewEntry: false,
             };
         });
-        console.log([...dataToSend, { ...newPageData, content: newPageData.content[0].content }]);
+        const dataWithNewPage = [
+            ...dataToSend,
+            { ...newPageData, content: newPageData.content[0].content, isNewEntry: true },
+        ];
+        const filtredData = dataWithNewPage.filter((entry) => entry.changed);
+        console.log(filtredData);
+        setRequestData({ status: "loading", result: null, error: null });
+        api.put<IResult>("/diary/update-diary", { entries: filtredData })
+            .then((res) => {
+                setRequestData({ status: "succesfull", result: res.data, error: null });
+                void dispatch(getUserByToken());
+            })
+            .catch((error: Error) => {
+                const err = handleAxiosError(error);
+                //handled by axios interceptor
+                if (err === "return") return;
+                setRequestData({ status: "failed", result: null, error: err });
+            });
     };
     const [currentPage, setCurrentPage] = useState(1);
     const onChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
