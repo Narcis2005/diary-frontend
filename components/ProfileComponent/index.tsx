@@ -7,6 +7,7 @@ import { getUserByToken, logoutUser } from "../../redux/slices/auth";
 import api from "../../utils/api";
 import handleAxiosError from "../../utils/handleAxiosError";
 import { Button, Input, Label, Message } from "../FormComponents";
+import fileDownload from "js-file-download";
 import {
     ProfileContainer,
     ProfileLeftSide,
@@ -111,6 +112,28 @@ const ProfileComponent = ({
         }
     };
 
+    interface IDiaryData {
+        status: "idle" | "loading" | "succesfull" | "failed";
+        result: string | null;
+        error: string | null;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [diaryData, setDiaryData] = useState<IDiaryData>({ status: "idle", result: null, error: null });
+
+    const getDiary = () => {
+        setDiaryData({ status: "loading", result: null, error: null });
+        api.get("/diary/download", { responseType: "blob" })
+            .then((res) => {
+                fileDownload(new Blob([res.data]), "diary.pdf");
+            })
+            .catch((error: Error) => {
+                const err = handleAxiosError(error);
+                //handled by axios interceptor
+                if (err === "return") return;
+                setDiaryData({ status: "failed", result: null, error: err });
+            });
+    };
+
     return (
         <>
             <ProfileContainer>
@@ -135,6 +158,9 @@ const ProfileComponent = ({
                         </ProfileLinkItem>
                         <ProfileLinkItem onClick={Logout}>
                             <Link href="/">Logout</Link>
+                        </ProfileLinkItem>
+                        <ProfileLinkItem onClick={getDiary}>
+                            <div style={{ cursor: "pointer" }}>Download your diary</div>
                         </ProfileLinkItem>
                     </ProfileLinksContainer>
                 </ProfileLeftSide>
