@@ -94,14 +94,13 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
     const [dataByDate, setDataByDate] = useState<IDateByDate[]>(
         data.map((content) => {
             return {
-                content: formatStringsInSubstringsWithNWords(content.content, 130),
+                content: formatStringsInSubstringsWithNWords(content.content, 165),
                 date: content.date,
                 id: content.id,
                 changed: false,
             };
         }),
     );
-    console.log(dataByDate);
     const [newPageData, setNewPageData] = useState<IDateByDate>({
         date: new Date(),
         content: [{ content: "", id: 1 }],
@@ -170,7 +169,6 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
             { ...newPageData, content: newPageData.content[0].content, isNewEntry: true },
         ];
         const filtredData = dataWithNewPage.filter((entry) => entry.changed);
-        console.log(filtredData);
         setRequestData({ status: "loading", result: null, error: null });
         api.put<IResult>("/diary/update-diary", { entries: filtredData })
             .then((res) => {

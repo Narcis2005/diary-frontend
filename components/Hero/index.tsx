@@ -24,7 +24,7 @@ const Hero = () => {
                     </HeadingContainer>
                     <ParagraphContainer>
                         <Paragraph>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quod expedita, ipsam aliquid
+                            Lorem  dolor sit amet consectetur adipisicing elit. Sed quod expedita, ipsam aliquid
                             dolore quibusdam deleniti accusamus aut ex aspernatur.
                         </Paragraph>
                     </ParagraphContainer>
