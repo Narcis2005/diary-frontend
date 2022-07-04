@@ -6,7 +6,7 @@ const ImageHero = () => {
         <>
             <ImageHeroContainer>
                 <ImageContainer>
-                    <Image src={"/diary-picture.jpeg"} layout="fill" objectFit="cover" alt="diary with pencil"></Image>
+                    <Image src={"/diary-picture.webp"} layout="fill" objectFit="cover" alt="diary with pencil"></Image>
                 </ImageContainer>
             </ImageHeroContainer>
         </>
