@@ -164,7 +164,7 @@ export const SmallIndicativePageNumber = styled.p`
 export const SavebuttonContainer = styled.div`
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 `;
 export const SaveButton = styled(Button)`
     width: 150px;
@@ -176,4 +176,14 @@ export const PageNumberContainer = styled.div`
 `;
 export const PageNumber = styled.p`
     font-size: 1.5rem;
+`;
+
+export const DownloadButton = styled(Button)`
+    width: 150px;
+    background: white;
+    color: black;
+    border: solid 1px black;
+    &:hover{
+        background: rgb(230, 230, 230);
+    }
 `;

@@ -1,9 +1,11 @@
+import fileDownload from "js-file-download";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "../../redux/hooks";
 import { getUserByToken } from "../../redux/slices/auth";
 import api from "../../utils/api";
 import handleAxiosError from "../../utils/handleAxiosError";
 import {
+    DownloadButton,
     IndicativePageForm,
     JournalContainer,
     PagesContainer,
@@ -38,6 +40,9 @@ export const formatStringsInSubstringsWithNWords = (string: string, n: number): 
 };
 
 const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     let pageNumber = 1;
     const [show, setShow] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
@@ -201,6 +206,29 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
         }
         return true;
     };
+    interface IDiaryData {
+        status: "idle" | "loading" | "succesfull" | "failed";
+        result: string | null;
+        error: string | null;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [diaryData, setDiaryData] = useState<IDiaryData>({ status: "idle", result: null, error: null });
+
+    const downloadDiary = () => {
+        setDiaryData({ status: "loading", result: null, error: null });
+        api.get("/diary/download", { responseType: "blob" })
+            .then((res) => {
+                fileDownload(new Blob([res.data]), "diary.pdf");
+                setDiaryData({status: "succesfull", result: null, error: null});
+            })
+            .catch((error: Error) => {
+                const err = handleAxiosError(error);
+                //handled by axios interceptor
+                if (err === "return") return;
+                setDiaryData({ status: "failed", result: null, error: err });
+            });
+    };
+
     return (
         <>
             <JournalContainer>
@@ -255,7 +283,8 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                         />
                     )}
                     <SavebuttonContainer>
-                        <SaveButton onClick={handleSave}>Save Journal</SaveButton>
+                        <SaveButton disabled={requestData.status === "loading"} onClick={handleSave}>{requestData.status === "loading" ? "Loading..." : "Save"}</SaveButton>
+                        <DownloadButton disabled={diaryData.status === "loading"} onClick={downloadDiary}>{diaryData.status === "loading" ? "Loading..." :  "Download"}</DownloadButton>
                     </SavebuttonContainer>
                 </PagesContainer>
             </JournalContainer>
