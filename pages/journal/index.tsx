@@ -4,7 +4,8 @@ import DefaultContainer from "../../containers/DefaultContaienr";
 import api from "../../utils/api";
 import handleAxiosError from "../../utils/handleAxiosError";
 import withAuth from "../../utils/withAuth";
-
+import { useAppSelector } from "../../redux/hooks";
+import Head from "next/head";
 const Journal = () => {
     interface IResult {
         content: string;
@@ -12,6 +13,8 @@ const Journal = () => {
         updatedAt: Date;
         id: number;
     }
+    const user = useAppSelector((state) => state.user);
+
     interface IData {
         status: "idle" | "loading" | "succesfull" | "failed";
         result: IResult[] | null;
@@ -33,6 +36,11 @@ const Journal = () => {
     }, []);
     return (
         <>
+            <Head>
+                <title>{user.result.username}&apos;s diary</title>
+                <meta name="description" content={`The private diary of ${user.result.fullName}`} />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <DefaultContainer>
                 {data.result && data.result.length > 0 && (
                     <>

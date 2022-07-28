@@ -183,7 +183,7 @@ export const DownloadButton = styled(Button)`
     background: white;
     color: black;
     border: solid 1px black;
-    &:hover{
+    &:hover {
         background: rgb(230, 230, 230);
     }
 `;

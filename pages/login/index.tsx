@@ -7,7 +7,7 @@ import DefaultContainer from "../../containers/DefaultContaienr";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loginUser } from "../../redux/slices/auth";
 import withoutAuth from "../../utils/withoutAuth";
-
+import Head from "next/head";
 const Login: NextPage = () => {
     const [data, setData] = useState({ username: "", password: "" });
     const dispatch = useAppDispatch();
@@ -28,6 +28,14 @@ const Login: NextPage = () => {
     };
     return (
         <>
+            <Head>
+                <title>Login - Diary</title>
+                <meta
+                    name="description"
+                    content="At diary you can write your online personal diary and save it in a secure way."
+                />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <DefaultContainer>
                 <BackgroundImage>
                     <LoginComponent

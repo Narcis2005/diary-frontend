@@ -219,7 +219,7 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
         api.get("/diary/download", { responseType: "blob" })
             .then((res) => {
                 fileDownload(new Blob([res.data]), "diary.pdf");
-                setDiaryData({status: "succesfull", result: null, error: null});
+                setDiaryData({ status: "succesfull", result: null, error: null });
             })
             .catch((error: Error) => {
                 const err = handleAxiosError(error);
@@ -283,8 +283,12 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                         />
                     )}
                     <SavebuttonContainer>
-                        <SaveButton disabled={requestData.status === "loading"} onClick={handleSave}>{requestData.status === "loading" ? "Loading..." : "Save"}</SaveButton>
-                        <DownloadButton disabled={diaryData.status === "loading"} onClick={downloadDiary}>{diaryData.status === "loading" ? "Loading..." :  "Download"}</DownloadButton>
+                        <SaveButton disabled={requestData.status === "loading"} onClick={handleSave}>
+                            {requestData.status === "loading" ? "Loading..." : "Save"}
+                        </SaveButton>
+                        <DownloadButton disabled={diaryData.status === "loading"} onClick={downloadDiary}>
+                            {diaryData.status === "loading" ? "Loading..." : "Download"}
+                        </DownloadButton>
                     </SavebuttonContainer>
                 </PagesContainer>
             </JournalContainer>

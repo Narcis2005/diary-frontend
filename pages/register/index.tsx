@@ -7,7 +7,7 @@ import { getUserByToken } from "../../redux/slices/auth";
 import api from "../../utils/api";
 import handleAxiosError from "../../utils/handleAxiosError";
 import withoutAuth from "../../utils/withoutAuth";
-
+import Head from "next/head";
 const Register = () => {
     const [data, setData] = useState({ username: "", password: "", email: "", fullName: "" });
     interface IResult {
@@ -40,6 +40,14 @@ const Register = () => {
     };
     return (
         <>
+            <Head>
+                <title>Register - Diary</title>
+                <meta
+                    name="description"
+                    content="At diary you can write your online personal diary and save it in a secure way."
+                />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <DefaultContainer>
                 <BackgroundImage>
                     <RegisterComponent

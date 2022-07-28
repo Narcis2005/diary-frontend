@@ -125,7 +125,7 @@ const ProfileComponent = ({
         api.get("/diary/download", { responseType: "blob" })
             .then((res) => {
                 fileDownload(new Blob([res.data]), "diary.pdf");
-                setDiaryData({status: "succesfull", result: null, error: null});
+                setDiaryData({ status: "succesfull", result: null, error: null });
             })
             .catch((error: Error) => {
                 const err = handleAxiosError(error);
@@ -161,7 +161,9 @@ const ProfileComponent = ({
                             <Link href="/">Logout</Link>
                         </ProfileLinkItem>
                         <ProfileLinkItem onClick={getDiary}>
-                            <div style={{ cursor: "pointer" }}>{diaryData.status === "loading" ? "Loading..." : "Download your diary"}</div>
+                            <div style={{ cursor: "pointer" }}>
+                                {diaryData.status === "loading" ? "Loading..." : "Download your diary"}
+                            </div>
                         </ProfileLinkItem>
                     </ProfileLinksContainer>
                 </ProfileLeftSide>
@@ -215,13 +217,15 @@ const ProfileComponent = ({
                                             onChange={handleFileChange}
                                             name="file"
                                             type="file"
-                                            accept="image/png, image/jpg, image/jpeg"
                                         />
                                     </FileUploadSelect>
                                 </FileUpload>
                             </FormGroup>
                             <FormGroup>
-                                <Button disabled={!userData.changesWereMade || reqData.status==="loading"} data-testid="button-profile">
+                                <Button
+                                    disabled={!userData.changesWereMade || reqData.status === "loading"}
+                                    data-testid="button-profile"
+                                >
                                     {reqData.status === "loading" ? "Loading..." : "Save"}
                                 </Button>
                             </FormGroup>
