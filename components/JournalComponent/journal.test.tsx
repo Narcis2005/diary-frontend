@@ -5,23 +5,35 @@ import { render } from "@testing-library/react";
 import JournalComponent, { formatStringsInSubstringsWithNWords } from ".";
 import "@testing-library/jest-dom";
 import "intersection-observer";
+import {store } from "../../redux/store";
+import { Provider } from "react-redux";
+import { initializeStore } from "../../utils/api";
 describe("test index component", () => {
+    beforeEach(() => {
+        initializeStore(store);
+    });
     test("content should appear on page", () => {
+        window.scrollTo = jest.fn();
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         window.HTMLElement.prototype.scrollIntoView = function () {};
+        // const store = makeStore();
         const data = [
             {
+                id: 1,
                 date: new Date(),
                 content:
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor enim eu dui pellentesque faucibus. Praesent viverra semper arcu nec viverra. Aliquam vehicula suscipit arcu, vitae ornare quam ullamcorper consequat. Maecenas id augue nec leo auctor egestas. Vivamus rhoncus neque vel orci dictum, quis dignissim velit volutpat. In ligula tortor, feugiat at aliquam a, porttitor nec erat. Praesent sit amet arcu ut tortor placerat ullamcorper. Praesent in sollicitudin purus, a egestas sem. Suspendisse ut leo turpis. Morbi scelerisque arcu ac nisi imperdiet, eu viverra leo luctus. Cras rutrum ac mauris ac euismod. Duis neque nisl, consectetur at lacus vitae, interdum tempor augue. Sed vitae semper nisl, facilisis aliquam lacus.",
             },
             {
+                id: 2,
                 date: new Date("5-22-2005"),
                 content:
                     "Nam in risus lorem. Curabitur faucibus nunc non sodales aliquet. Sed nisl purus, dapibus et pellentesque a, sodales ac nisl. Vivamus ac mi ligula. Vivamus in turpis non tellus vulputate tincidunt at sed eros. Cras eget augue a nisi lobortis tempor. Donec luctus nulla id enim interdum rhoncus. In vitae felis quis lectus ultrices venenatis scelerisque eget mi. Cras at ultrices ante, vel ultrices tellus. Etiam est erat, euismod non dolor vel, mattis rutrum ipsum. Nulla augue sem, condimentum posuere mauris pulvinar, vestibulum dictum turpis. Nunc tincidunt nec augue vel pharetra. Cras scelerisque nunc eu nulla vestibulum posuere. Donec tempor eget velit vitae iaculis. Pellentesque sed nunc ut tellus volutpat varius non ac nulla.",
             },
         ];
-        const { getByText } = render(<JournalComponent data={data} />);
+        const { getByText } = render(<Provider store={store}>
+                    <JournalComponent data={data} />
+       </Provider> );
         data.forEach((newData) => {
             const content = newData.content;
             expect(getByText(content)).toBeInTheDocument();

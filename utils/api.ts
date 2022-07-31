@@ -2,8 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import axios from "axios";
-import { store } from "../redux/store";
 import { logoutUser } from "../redux/slices/auth";
+
+let store: any;
+
+export const initializeStore = (_store: any) => {
+    store = _store;
+};
 const api = axios.create({
     baseURL:
         process.env.NODE_ENV == "development" ? "http://localhost:3026/api" : "https://diary.chirilovnarcis.ro/api",

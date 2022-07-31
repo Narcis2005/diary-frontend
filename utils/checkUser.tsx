@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useAppDispatch } from "../redux/hooks";
-import { getUserByToken } from "../redux/slices/auth";
+import { getUserByToken} from "../redux/slices/auth";
 
 const CheckUser = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useAppDispatch();
+
     useEffect(() => {
         void dispatch(getUserByToken());
 

@@ -41,7 +41,9 @@ export const formatStringsInSubstringsWithNWords = (string: string, n: number): 
 
 const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if(window) {
+         window.scrollTo(0, 0);
+        }
     }, []);
     let pageNumber = 1;
     const [show, setShow] = useState(true);
