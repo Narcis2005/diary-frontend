@@ -100,7 +100,6 @@ export const NavLinks = styled.ul`
     @media (min-width: 920px) {
         flex-direction: row;
         min-height: auto;
-        max-height: auto;
         height: 40px;
     }
 `;

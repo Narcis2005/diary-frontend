@@ -108,6 +108,7 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
             };
         }),
     );
+
     const [newPageData, setNewPageData] = useState<IDateByDate>({
         date: new Date(),
         content: [{ content: "", id: 1 }],

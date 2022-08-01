@@ -10,7 +10,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/fonts/Caudex-Bold.ttf',
+        source: '/fonts/caudex-bold.woff2',
         headers: [
           {
             key: 'Cache-control',
@@ -19,7 +19,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/fonts/Caudex-Regular.ttf',
+        source: '/fonts/caudex-regular.woff2',
         headers: [
           {
             key: 'Cache-control',
