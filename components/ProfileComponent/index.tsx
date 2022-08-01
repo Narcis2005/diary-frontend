@@ -152,6 +152,9 @@ const ProfileComponent = ({
                     </ImageContainerProfile>
                     <ProfileLinksContainer>
                         <ProfileLinkItem>
+                            <Link href="/journal">Write in diary</Link>
+                        </ProfileLinkItem>
+                        <ProfileLinkItem>
                             <Link href="/profile/password-change">Change Password</Link>
                         </ProfileLinkItem>
                         <ProfileLinkItem>

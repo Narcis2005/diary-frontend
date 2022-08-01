@@ -71,6 +71,7 @@ export const FooterMenu = styled.ul`
     display: flex;
     flex-direction: column;
     gap: 10px;
+    text-align: center;
 `;
 export const FooterMenuTitle = styled.h4`
     opacity: 0.8;

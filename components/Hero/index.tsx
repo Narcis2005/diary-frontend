@@ -24,8 +24,7 @@ const Hero = () => {
                     </HeadingContainer>
                     <ParagraphContainer>
                         <Paragraph>
-                            Lorem dolor sit amet consectetur adipisicing elit. Sed quod expedita, ipsam aliquid dolore
-                            quibusdam deleniti accusamus aut ex aspernatur.
+                            Press the below button to start writing in your private online diary, or create an account. What are you waiting for?
                         </Paragraph>
                     </ParagraphContainer>
                     <StartWritingButtonContainer>
