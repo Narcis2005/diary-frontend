@@ -1,34 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Diary - frontend
 
-## Getting Started
+Diary is a web application where you can let your emotions fly, by writing them in your personal and  private diary. After that, just download it. You can even print it then.
 
-First, run the development server:
 
-```bash
+## Features
+
+- Login/Register
+- Write/edit diary
+- See profile info
+- Edit profile info
+- Download diary in pdf
+- All diary content is encrypted
+- Automatic formating of content is pages on diary save
+- Responsive design
+- Server side rendering
+
+## Tech
+
+- Next
+- Node 
+- Express
+- Redux Toolkit
+- Styled Components
+- Typescript
+- Json web token based auth with refresh tokens
+- Postgresql
+- Sequelize
+- Jest, Mocha
+- Docker
+
+## Demo
+You can interact with the project
+ [here](https://diary.chirilovnarcis.ro).
+
+
+ 
+[![Photo of the main page](https://i.im.ge/2022/08/13/OoKXrS.diary-chirilovnarcis-ro-1.png)](https://im.ge/i/OoKXrS)
+
+## Installation
+
+Requires [Node.js](https://nodejs.org/) v14+ to run and typescript. This only runs the frontend. To run the backend please visit [this](https://github.com/Narcis2005/diary-backend)
+
+### Install the dependencies and run the app
+
+#### With simple npm
+```sh
+npm i
 npm run dev
-# or
-yarn dev
+```
+ #### Or by using docker
+ ```sh
+docker build -t nextjs-docker .
+docker run -d -p 3000:3000 --name nextjs-docker nextjs-docker
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+- MIT License
+- Copyright 2022 © [Chirilov Narcis](https://chirilovnarcis.ro)
