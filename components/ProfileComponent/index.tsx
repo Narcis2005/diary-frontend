@@ -110,6 +110,22 @@ const ProfileComponent = ({
                     setReqData({ status: "failed", error: err });
                 });
         }
+        else {
+            api.put("/auth/update", {
+                username: userData.username,
+                email: userData.email,
+                fullName: userData.fullName
+            })
+                .then(() => {
+                    setReqData({ status: "success", error: "" });
+                    void dispatch(getUserByToken());
+                })
+                .catch((error: Error) => {
+                    const err = handleAxiosError(error);
+                    if (err === "return") return;
+                    setReqData({ status: "failed", error: err });
+                });
+        }
     };
 
     interface IDiaryData {
