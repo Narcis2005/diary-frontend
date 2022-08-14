@@ -109,12 +109,11 @@ const ProfileComponent = ({
                     if (err === "return") return;
                     setReqData({ status: "failed", error: err });
                 });
-        }
-        else {
+        } else {
             api.put("/auth/update", {
                 username: userData.username,
                 email: userData.email,
-                fullName: userData.fullName
+                fullName: userData.fullName,
             })
                 .then(() => {
                     setReqData({ status: "success", error: "" });

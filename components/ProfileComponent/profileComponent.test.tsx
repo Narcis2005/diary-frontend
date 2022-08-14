@@ -1,8 +1,7 @@
-
 import { fireEvent, render } from "@testing-library/react";
 import ProfileComponent from ".";
 import "@testing-library/jest-dom";
-import {  store } from "../../redux/store";
+import { store } from "../../redux/store";
 import { Provider } from "react-redux";
 import { initializeStore } from "../../utils/api";
 
@@ -19,9 +18,11 @@ describe("profile component", () => {
             fullName: "Chirilov Narcis",
             imageURL: "/pozaCuMine.jpg",
         };
-        const { queryByTestId } = render(<Provider store={store}>
-            <ProfileComponent {...props} />
-       </Provider>);
+        const { queryByTestId } = render(
+            <Provider store={store}>
+                <ProfileComponent {...props} />
+            </Provider>,
+        );
         const fullName = queryByTestId("input-fullname");
         const username = queryByTestId("input-username");
         const email = queryByTestId("input-email");
@@ -38,10 +39,10 @@ describe("profile component", () => {
             imageURL: "/pozaCuMine.jpg",
         };
         const { queryByTestId } = render(
-        <Provider store={store}>
-             <ProfileComponent {...props} />
-        </Provider>
-       );
+            <Provider store={store}>
+                <ProfileComponent {...props} />
+            </Provider>,
+        );
         const button = queryByTestId("button-profile");
         expect(button).toBeDisabled();
     });
@@ -53,9 +54,11 @@ describe("profile component", () => {
             fullName: "Chirilov Narcis",
             imageURL: "/pozaCuMine.jpg",
         };
-        const { queryByTestId } = render(<Provider store={store}>
-            <ProfileComponent {...props} />
-       </Provider>);
+        const { queryByTestId } = render(
+            <Provider store={store}>
+                <ProfileComponent {...props} />
+            </Provider>,
+        );
         const button = queryByTestId("button-profile");
         const fullName = queryByTestId("input-fullname") as HTMLInputElement;
         fireEvent.change(fullName, { target: { value: "new value" } });

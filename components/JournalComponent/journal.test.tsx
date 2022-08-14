@@ -5,7 +5,7 @@ import { render } from "@testing-library/react";
 import JournalComponent, { formatStringsInSubstringsWithNWords } from ".";
 import "@testing-library/jest-dom";
 import "intersection-observer";
-import {store } from "../../redux/store";
+import { store } from "../../redux/store";
 import { Provider } from "react-redux";
 import { initializeStore } from "../../utils/api";
 describe("test index component", () => {
@@ -31,9 +31,11 @@ describe("test index component", () => {
                     "Nam in risus lorem. Curabitur faucibus nunc non sodales aliquet. Sed nisl purus, dapibus et pellentesque a, sodales ac nisl. Vivamus ac mi ligula. Vivamus in turpis non tellus vulputate tincidunt at sed eros. Cras eget augue a nisi lobortis tempor. Donec luctus nulla id enim interdum rhoncus. In vitae felis quis lectus ultrices venenatis scelerisque eget mi. Cras at ultrices ante, vel ultrices tellus. Etiam est erat, euismod non dolor vel, mattis rutrum ipsum. Nulla augue sem, condimentum posuere mauris pulvinar, vestibulum dictum turpis. Nunc tincidunt nec augue vel pharetra. Cras scelerisque nunc eu nulla vestibulum posuere. Donec tempor eget velit vitae iaculis. Pellentesque sed nunc ut tellus volutpat varius non ac nulla.",
             },
         ];
-        const { getByText } = render(<Provider store={store}>
-                    <JournalComponent data={data} />
-       </Provider> );
+        const { getByText } = render(
+            <Provider store={store}>
+                <JournalComponent data={data} />
+            </Provider>,
+        );
         data.forEach((newData) => {
             const content = newData.content;
             expect(getByText(content)).toBeInTheDocument();

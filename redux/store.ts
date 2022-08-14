@@ -3,9 +3,9 @@ import userReducer from "./slices/auth";
 
 export function makeStore() {
     return configureStore({
-      reducer: { user: userReducer}
+        reducer: { user: userReducer },
     });
-  }
+}
 export const store = makeStore();
 
 export type AppDispatch = typeof store.dispatch;

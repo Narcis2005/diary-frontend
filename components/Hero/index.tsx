@@ -24,7 +24,8 @@ const Hero = () => {
                     </HeadingContainer>
                     <ParagraphContainer>
                         <Paragraph>
-                            Press the below button to start writing in your private online diary, or create an account. What are you waiting for?
+                            Press the below button to start writing in your private online diary, or create an account.
+                            What are you waiting for?
                         </Paragraph>
                     </ParagraphContainer>
                     <StartWritingButtonContainer>
