@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import { IHandleTabIndent } from ".";
 import {
     PageContainer,
     InfoContainerJournal,
@@ -17,6 +18,7 @@ export interface IPageComponent {
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>, index: number, date: Date, isNewPage: boolean) => void;
     currentPage: number;
     change: (nr: number) => void;
+    handleTabIndent: ({ e, index, isNewPage, date }: IHandleTabIndent) => void;
     numberOfPage: number;
     isNewPage: boolean;
     placeholder?: string;
@@ -32,6 +34,7 @@ const PageComponent = ({
     numberOfPage,
     isNewPage,
     placeholder,
+    handleTabIndent,
 }: IPageComponent) => {
     const { ref, inView } = useInView({ threshold: 0.5 });
     const pageNumberRef = useRef<HTMLDivElement>(null);
@@ -69,7 +72,15 @@ const PageComponent = ({
         },
         [ref],
     );
-
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        const target = e.target as HTMLTextAreaElement;
+        const end = target.selectionEnd;
+        handleTabIndent({ e, index, date, isNewPage });
+        if (textAreaRef.current) {
+            textAreaRef.current.selectionEnd = end + 4;
+        }
+    };
     const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" } as const; //ts throws some type error
     return (
         <PageContainer ref={setRefs}>
@@ -78,7 +89,13 @@ const PageComponent = ({
                 <WrritenAtJournal>{date.toLocaleDateString("en-US", options)}</WrritenAtJournal>
             </InfoContainerJournal>
             <TextAreaContainer>
-                <Page value={content} onChange={handleOnChange} placeholder={placeholder}></Page>
+                <Page
+                    ref={textAreaRef}
+                    value={content}
+                    onKeyDown={handleKeyPress}
+                    onChange={handleOnChange}
+                    placeholder={placeholder}
+                ></Page>
             </TextAreaContainer>
             <PageNumberContainer ref={pageNumberRef}>
                 <PageNumber>{numberOfPage}</PageNumber>

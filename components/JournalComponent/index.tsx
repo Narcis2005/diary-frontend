@@ -38,7 +38,12 @@ export const formatStringsInSubstringsWithNWords = (string: string, n: number): 
     }
     return stringsFormated;
 };
-
+export interface IHandleTabIndent {
+    e: React.KeyboardEvent<HTMLTextAreaElement>;
+    index: number;
+    date: Date;
+    isNewPage: boolean;
+}
 const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
     useEffect(() => {
         if (window) {
@@ -232,6 +237,21 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
             });
     };
 
+    const handleTabIndent = ({ e, index, date, isNewPage }: IHandleTabIndent) => {
+        const target = e.target as HTMLTextAreaElement;
+
+        const content = target.value;
+        const caret = target.selectionStart;
+
+        if (e.key === "Tab") {
+            e.preventDefault();
+
+            const newText = content.substring(0, caret) + " ".repeat(4) + content.substring(caret);
+            const newE = e as unknown as React.ChangeEvent<HTMLTextAreaElement>;
+            newE.target.value = newText;
+            onChange(newE, index, date, isNewPage);
+        }
+    };
     return (
         <>
             <JournalContainer>
@@ -269,11 +289,13 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
                                 currentPage={currentPage}
                                 change={changePageOnScroll}
                                 isNewPage={false}
+                                handleTabIndent={handleTabIndent}
                             />
                         ));
                     })}
                     {isTodayANewDay() && (
                         <PageComponent
+                            handleTabIndent={handleTabIndent}
                             onChange={onChange}
                             numberOfPage={indexOfPage++}
                             content={newPageData.content[0].content}
