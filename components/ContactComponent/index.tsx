@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+import { IData } from "../../pages/contact";
 import { Label, Input, Button } from "../FormComponents";
 import {
     ContactContainer,
@@ -8,17 +10,26 @@ import {
     ContactForm,
     ContactLabelInputContainer,
     ContactTextarea,
+    ContactMessage,
 } from "./ContactComponents";
 
 const ContactComponent = ({
     onChange,
     value,
     onSubmit,
+    callData,
 }: {
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     value: { message: string; subject: string; email: string; fullName: string };
     onSubmit: (e: React.FormEvent) => void;
+    callData: IData;
 }) => {
+    const emailInputRef = useRef<HTMLInputElement>(null);
+    useEffect(() => {
+        if (callData.status === "failed" && callData.error === "Email is not valid" && emailInputRef.current) {
+            emailInputRef.current.focus();
+        }
+    }, [callData]);
     return (
         <>
             <ContactContainer>
@@ -51,6 +62,7 @@ const ContactComponent = ({
                                 value={value.email}
                                 onChange={onChange}
                                 required
+                                ref={emailInputRef}
                             />
                         </ContactLabelInputContainer>
                         <ContactLabelInputContainer>
@@ -75,7 +87,18 @@ const ContactComponent = ({
                             ></ContactTextarea>
                         </ContactLabelInputContainer>
                         <ContactLabelInputContainer>
-                            <Button>Login</Button>
+                            <Button>Send</Button>
+                        </ContactLabelInputContainer>
+                        <ContactLabelInputContainer>
+                            {callData.status === "succesfull" && callData.result && callData.result.message && (
+                                <ContactMessage color={"#2bc42b"}>{callData.result?.message}</ContactMessage>
+                            )}
+                            {callData.status === "failed" && callData.error && (
+                                <ContactMessage color={"darkred"}>{callData.error}</ContactMessage>
+                            )}
+                            {callData.status === "loading" && (
+                                <ContactMessage color={"gray"}>Loading...</ContactMessage>
+                            )}
                         </ContactLabelInputContainer>
                     </ContactForm>
                 </ContactRightSideContainer>

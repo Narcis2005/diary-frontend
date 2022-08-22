@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, LabelinputContainer } from "../FormComponents";
+import { Button, LabelinputContainer, Message } from "../FormComponents";
 
 export const ContactContainer = styled.div`
     width: 100%;
@@ -75,4 +75,10 @@ export const ContactTextarea = styled.textarea`
 `;
 export const ContactButton = styled(Button)`
     align-self: flex-start;
+`;
+interface IContactMessage {
+    color: string;
+}
+export const ContactMessage = styled(Message)<IContactMessage>`
+    background-color: ${({ color }) => color};
 `;

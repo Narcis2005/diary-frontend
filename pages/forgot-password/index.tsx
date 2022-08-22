@@ -1,7 +1,6 @@
 import { useState } from "react";
-import ContactComponent from "../../components/ContactComponent";
+import ForgotPasswordComponent from "../../components/ForgotPasswordComponent";
 import DefaultContainer from "../../containers/DefaultContaienr";
-import Head from "next/head";
 import api from "../../utils/api";
 import handleAxiosError from "../../utils/handleAxiosError";
 interface IResult {
@@ -12,18 +11,18 @@ export interface IData {
     result: IResult | null;
     error: string | null;
 }
-const Contact = () => {
-    const [data, setData] = useState({ message: "", subject: "", email: "", fullName: "" });
-    const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setData((prevData) => ({ ...prevData, [e.target.name]: e.target.value }));
+const ForgotPassword = () => {
+    const [value, setValue] = useState("");
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value);
     };
-
     const [callData, setCallData] = useState<IData>({ status: "idle", result: null, error: null });
-
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setCallData({ status: "loading", result: null, error: null });
-        api.post<IResult>("/contact", { ...data })
+        api.post<IResult>("/auth/forgot-password", {
+            email: value,
+        })
             .then((res) => {
                 setCallData({ status: "succesfull", result: res.data, error: null });
             })
@@ -33,20 +32,13 @@ const Contact = () => {
                 if (err === "return") return;
                 setCallData({ status: "failed", result: null, error: err });
             });
+        setValue("");
     };
-
     return (
-        <>
-            <Head>
-                <title>Contact - Diary</title>
-                <meta name="description" content="Contact us if you find bugs or have questions" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <DefaultContainer>
-                <ContactComponent onChange={onChange} onSubmit={onSubmit} value={data} callData={callData} />
-            </DefaultContainer>
-        </>
+        <DefaultContainer>
+            <ForgotPasswordComponent onSubmit={onSubmit} callData={callData} onChange={onChange} value={value} />
+        </DefaultContainer>
     );
 };
 
-export default Contact;
+export default ForgotPassword;

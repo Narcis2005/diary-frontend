@@ -82,6 +82,7 @@ export const Page = styled.textarea`
     padding: 8px 20px;
     font-size: 1.3rem;
     overflow: hidden;
+    word-wrap: normal;
     &:focus {
         border: none;
     }

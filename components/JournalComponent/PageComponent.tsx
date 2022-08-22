@@ -74,11 +74,13 @@ const PageComponent = ({
     );
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        const target = e.target as HTMLTextAreaElement;
-        const end = target.selectionEnd;
-        handleTabIndent({ e, index, date, isNewPage });
-        if (textAreaRef.current) {
-            textAreaRef.current.selectionEnd = end + 4;
+        if (e.key === "Tab") {
+            const target = e.target as HTMLTextAreaElement;
+            const end = target.selectionEnd;
+            handleTabIndent({ e, index, date, isNewPage });
+            if (textAreaRef.current) {
+                textAreaRef.current.selectionEnd = end + 1;
+            }
         }
     };
     const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" } as const; //ts throws some type error

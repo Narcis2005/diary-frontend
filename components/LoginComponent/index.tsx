@@ -56,6 +56,9 @@ const LoginComponent = ({
                     <Link href="/register" passHref>
                         <RedirectText>You dont have an account? Create one here</RedirectText>
                     </Link>
+                    <Link href="/forgot-password" passHref>
+                        <RedirectText>Press here if you need to reset your password</RedirectText>
+                    </Link>
                 </RedirectTextContainer>
                 {error && <Message>{error}</Message>}
             </Form>

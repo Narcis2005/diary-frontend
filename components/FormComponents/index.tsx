@@ -83,4 +83,5 @@ export const RedirectTextContainer = styled.div`
 export const RedirectText = styled.p`
     text-decoration: underline;
     font-size: 18px;
+    padding-bottom: 10px;
 `;

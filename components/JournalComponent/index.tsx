@@ -246,7 +246,7 @@ const JournalComponent = ({ data }: { data: IJournalComponent[] }) => {
         if (e.key === "Tab") {
             e.preventDefault();
 
-            const newText = content.substring(0, caret) + " ".repeat(4) + content.substring(caret);
+            const newText = content.substring(0, caret) + "\t" + content.substring(caret);
             const newE = e as unknown as React.ChangeEvent<HTMLTextAreaElement>;
             newE.target.value = newText;
             onChange(newE, index, date, isNewPage);

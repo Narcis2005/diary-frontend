@@ -149,7 +149,32 @@ const ProfileComponent = ({
                 setDiaryData({ status: "failed", result: null, error: err });
             });
     };
+    interface IResult {
+        message: string;
+    }
+    interface IData {
+        status: "idle" | "loading" | "succesfull" | "failed";
+        result: IResult | null;
+        error: string | null;
+    }
+    const [resetPasswordCall, setResetPasswordCall] = useState<IData>({ status: "idle", result: null, error: null });
 
+    const handleResetPasswordClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (resetPasswordCall.status === "idle") {
+            setResetPasswordCall({ status: "loading", result: null, error: null });
+            api.post<IResult>("/auth/send-reset-password-email")
+                .then((res) => {
+                    setResetPasswordCall({ status: "succesfull", result: res.data, error: null });
+                })
+                .catch((error: Error) => {
+                    const err = handleAxiosError(error);
+                    //handled by axios interceptor
+                    if (err === "return") return;
+                    setResetPasswordCall({ status: "failed", result: null, error: err });
+                });
+        }
+    };
     return (
         <>
             <ProfileContainer>
@@ -169,8 +194,16 @@ const ProfileComponent = ({
                         <ProfileLinkItem>
                             <Link href="/journal">Write in diary</Link>
                         </ProfileLinkItem>
-                        <ProfileLinkItem>
-                            <Link href="/profile/password-change">Change Password</Link>
+                        <ProfileLinkItem onClick={handleResetPasswordClick}>
+                            <div style={{ cursor: resetPasswordCall.status === "idle" ? "pointer" : "initial" }}>
+                                {resetPasswordCall.status === "loading"
+                                    ? "Loading..."
+                                    : resetPasswordCall.status === "succesfull"
+                                    ? "An email has been sent"
+                                    : resetPasswordCall.error
+                                    ? resetPasswordCall.error
+                                    : "Reset your password"}
+                            </div>
                         </ProfileLinkItem>
                         <ProfileLinkItem>
                             <Link href="/profile/delete">Delete Account</Link>
