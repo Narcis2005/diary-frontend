@@ -13,15 +13,18 @@ Diary is a web application where you can let your emotions fly, by writing them 
 -   Automatic formating of content is pages on diary save
 -   Responsive design
 -   Server side rendering
+-   Change password
+-   Forgot password
+-   Delete account
 
 ## Upcoming features
 
 -   Customize your diary design
--   Delete account
 -   Google, Facebook auth
 -   More testing
--   Change password
 -   Rich text editor (maybe)
+-   Recaptcha
+-   Analytics
 
 ## Tech
 
