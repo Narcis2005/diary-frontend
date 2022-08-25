@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import DefaultContainer from "../../../containers/DefaultContaienr";
@@ -35,6 +36,11 @@ const ConfirmAccountRemoval = () => {
     }, [token]);
     return (
         <>
+            <Head>
+                <title>Diary - Delete account</title>
+                <meta name="description" content="Your account is deleted here" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             {callData.status === "succesfull" && void router.push("/")}
             {callData.status === "failed" && (
                 <DefaultContainer>

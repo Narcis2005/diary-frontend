@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import ResetPasswordComponent from "../../../components/ResetPasswordComponent";
@@ -41,6 +42,11 @@ const ResetPassword = () => {
     };
     return (
         <>
+            <Head>
+                <title>Diary - Change password</title>
+                <meta name="description" content="Change your password on diary" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <DefaultContainer>
                 <ResetPasswordComponent onChange={onChange} callData={callData} onSubmit={onSubmit} values={values} />
             </DefaultContainer>

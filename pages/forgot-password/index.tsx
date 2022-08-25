@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useState } from "react";
 import ForgotPasswordComponent from "../../components/ForgotPasswordComponent";
 import DefaultContainer from "../../containers/DefaultContaienr";
@@ -35,9 +36,16 @@ const ForgotPassword = () => {
         setValue("");
     };
     return (
-        <DefaultContainer>
-            <ForgotPasswordComponent onSubmit={onSubmit} callData={callData} onChange={onChange} value={value} />
-        </DefaultContainer>
+        <>
+            <Head>
+                <title>Diary - Forgotten password</title>
+                <meta name="description" content="Did you forgot your password? Reset it!" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <DefaultContainer>
+                <ForgotPasswordComponent onSubmit={onSubmit} callData={callData} onChange={onChange} value={value} />
+            </DefaultContainer>
+        </>
     );
 };
 

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React, { useState } from "react";
 import DeleteComponent from "../../../components/DeleteComponent";
 import DefaultContainer from "../../../containers/DefaultContaienr";
@@ -34,9 +35,16 @@ const Delete = () => {
         setValue("");
     };
     return (
-        <DefaultContainer>
-            <DeleteComponent onChange={onChange} onSubmit={onSubmit} callData={callData} value={value} />
-        </DefaultContainer>
+        <>
+            <Head>
+                <title>Diary - Delete account</title>
+                <meta name="description" content="Delete your diary account" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <DefaultContainer>
+                <DeleteComponent onChange={onChange} onSubmit={onSubmit} callData={callData} value={value} />
+            </DefaultContainer>
+        </>
     );
 };
 export default withAuth(Delete);
