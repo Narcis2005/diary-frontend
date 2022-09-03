@@ -33,6 +33,7 @@ const ConfirmAccountRemoval = () => {
                     setCallData({ status: "failed", result: null, error: err });
                 });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
     return (
         <>

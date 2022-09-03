@@ -2,12 +2,13 @@
  * @jest-environment jsdom
  */
 import { render } from "@testing-library/react";
-import JournalComponent, { formatStringsInSubstringsWithNWords } from ".";
+import JournalComponent from ".";
 import "@testing-library/jest-dom";
 import "intersection-observer";
 import { store } from "../../redux/store";
 import { Provider } from "react-redux";
 import { initializeStore } from "../../utils/api";
+import formatStringsInSubstringsWithNWords from "./helpers/formatStringsInSubstringsWithNWords";
 describe("test index component", () => {
     beforeEach(() => {
         initializeStore(store);
