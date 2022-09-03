@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { IHandleTabIndent } from ".";
 import {
     PageContainer,
     InfoContainerJournal,
@@ -11,11 +10,15 @@ import {
     PageNumber,
     PageNumberContainer,
 } from "./JournalComponents";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { IHandleTabIndent } from "./interfaces";
+
 export interface IPageComponent {
     date: Date;
     content: string;
     index: number;
-    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>, index: number, date: Date, isNewPage: boolean) => void;
+    onChange: (e: React.ChangeEvent<HTMLTextAreaElement> | null, index: number, date: Date, isNewPage: boolean) => void;
     currentPage: number;
     change: (nr: number) => void;
     handleTabIndent: ({ e, index, isNewPage, date }: IHandleTabIndent) => void;
@@ -40,6 +43,12 @@ const PageComponent = ({
     const pageNumberRef = useRef<HTMLDivElement>(null);
     const [initialTextAreaHeight, setInitialTextAreaHeight] = useState(0);
     const [isInitialCall, setIsInitialCall] = useState(true);
+    const [startDate, setStartDate] = useState(new Date());
+
+    const handleDateChange = (newDate: Date) => {
+        setStartDate(newDate);
+        onChange(null, index, newDate, isNewPage);
+    };
     const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         if (isInitialCall) {
             setInitialTextAreaHeight(e.target.scrollHeight);
@@ -50,7 +59,11 @@ const PageComponent = ({
         if (pageNumberRef.current && !isInitialCall) {
             pageNumberRef.current.style.marginTop = `${e.target.scrollHeight - initialTextAreaHeight}px`;
         }
-        onChange(e, index, date, isNewPage);
+        if (isNewPage) {
+            onChange(e, index, startDate, isNewPage);
+        } else {
+            onChange(e, index, date, isNewPage);
+        }
     };
     const containerRef = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
     useEffect(() => {
@@ -77,7 +90,11 @@ const PageComponent = ({
         if (e.key === "Tab") {
             const target = e.target as HTMLTextAreaElement;
             const end = target.selectionEnd;
-            handleTabIndent({ e, index, date, isNewPage });
+            if (isNewPage) {
+                handleTabIndent({ e, index, date: startDate, isNewPage });
+            } else {
+                handleTabIndent({ e, index, date, isNewPage });
+            }
             if (textAreaRef.current) {
                 textAreaRef.current.selectionEnd = end + 1;
             }
@@ -88,7 +105,12 @@ const PageComponent = ({
         <PageContainer ref={setRefs}>
             <InfoContainerJournal>
                 <WrritenByJournal>Narcis&apos;s diary</WrritenByJournal>
-                <WrritenAtJournal>{date.toLocaleDateString("en-US", options)}</WrritenAtJournal>
+                {!isNewPage && <WrritenAtJournal>{date.toLocaleDateString("en-US", options)}</WrritenAtJournal>}
+                {isNewPage && (
+                    <div>
+                        <DatePicker selected={startDate} onChange={handleDateChange} />
+                    </div>
+                )}
             </InfoContainerJournal>
             <TextAreaContainer>
                 <Page
