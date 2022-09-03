@@ -28,7 +28,6 @@ const useGetDiary = () => {
                 setData({ status: "failed", diary: null, error: err });
             });
     }, []);
-
     if (data?.status != "loading" && (data === undefined || data.diary === undefined || data.diary === null)) {
         return {
             status: "succesfull",
