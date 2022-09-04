@@ -1,7 +1,6 @@
 import fileDownload from "js-file-download";
 import { useState } from "react";
-import { useAppDispatch } from "../../redux/hooks";
-import { getUserByToken } from "../../redux/slices/auth";
+import useGetUser from "../../hooks/useGetUser";
 import handleAxiosError from "../../utils/handleAxiosError";
 import downloadDiaryCall from "./helpers/downloadDiary";
 import updateDiaryCall from "./helpers/updateDiaryCall";
@@ -15,7 +14,7 @@ interface IButtonsContainerComponent {
 const ButtonsContainerComponent = ({ dataByDate, newPageData }: IButtonsContainerComponent) => {
     const [diaryData, setDiaryData] = useState<IDiaryData>({ status: "idle", result: null, error: null });
     const [requestData, setRequestData] = useState<IDataUpdateCall>({ status: "idle", result: null, error: null });
-    const dispatch = useAppDispatch();
+    const getUser = useGetUser();
     const handleSave = (e: React.MouseEvent) => {
         e.preventDefault();
         const dataToSend = dataByDate.map((oneDataByDate) => {
@@ -36,7 +35,7 @@ const ButtonsContainerComponent = ({ dataByDate, newPageData }: IButtonsContaine
         updateDiaryCall(filtredData)
             .then((data) => {
                 setRequestData({ status: "succesfull", result: data ?? null, error: null });
-                void dispatch(getUserByToken());
+                getUser();
             })
             .catch((error: Error) => {
                 const err = handleAxiosError(error);

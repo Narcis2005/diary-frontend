@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useAppDispatch } from "../../redux/hooks";
-import { logoutUser } from "../../redux/slices/auth";
+import React, { useEffect, useRef, useState } from "react";
+import useHideOnOutsideCall from "../../hooks/useHideOnOutsideClick";
+import useLogout from "../../hooks/useLogout";
 import {
     Nav,
     LoginButton,
@@ -23,19 +23,19 @@ import {
 } from "./NavbarComponents";
 
 const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const handleMobileClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
     const navContainerRef = useRef<HTMLHeadingElement>(null);
-    //If the click is outside the nav, close the mobile nav
-    const checkOutsideClick = useCallback((e: MouseEvent) => {
-        if (navContainerRef.current && !navContainerRef.current.contains(e.target as Node)) {
-            setIsMobileMenuOpen(false);
-            setShow(false);
-        }
-    }, []);
+    const { setShowClick: setShowMobileIcon, showClick: showMobileIcon } = useHideOnOutsideCall(
+        navContainerRef.current,
+    );
+    const [showDropdwonMenu, setShowDropdownMenu] = useState(false);
+    const handleMobileNavIconClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setShowMobileIcon(!showMobileIcon);
+    };
+    const handleDropdownMenuClick = () => {
+        setShowDropdownMenu((prevShow) => !prevShow);
+    };
+
     //in test, router is undefined
     const [pathname, setPathname] = useState("");
     const router = useRouter();
@@ -44,24 +44,7 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
             setPathname(router.pathname);
         }
     }, [router?.isReady, router?.pathname]);
-    useEffect(() => {
-        document.addEventListener("mouseup", checkOutsideClick);
-    }, [checkOutsideClick]);
-
-    //I think it's not necessary to do this, knowing that the nav is always rendered
-    useEffect(() => {
-        return () => {
-            document.removeEventListener("mouseup", checkOutsideClick);
-        };
-    }, [checkOutsideClick]);
-    const [show, setShow] = useState(false);
-    const handleDropdownMenuClick = () => {
-        setShow((prevShow) => !prevShow);
-    };
-    const dispatch = useAppDispatch();
-    const Logout = () => {
-        void dispatch(logoutUser());
-    };
+    const Logout = useLogout();
     return (
         <NavbarContainer ref={navContainerRef}>
             <NavbarInnerContainer>
@@ -84,7 +67,7 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                     </ImageContainer>
                 </LogoContainer>
 
-                <Nav isOpen={isMobileMenuOpen}>
+                <Nav isOpen={showMobileIcon}>
                     <NavLinks>
                         <NavItem isCurrentPage={pathname === "/"} showOnMobile showOnDesktop>
                             <Link href={"/"}>Home</Link>
@@ -134,7 +117,7 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                                                 data-testid="profile-image"
                                             />
                                         </ProfileImageContainer>
-                                        <DropdownMenu show={show}>
+                                        <DropdownMenu show={showDropdwonMenu}>
                                             <DropdownItem onClick={handleDropdownMenuClick}>
                                                 <Link href="/profile">Profile</Link>
                                             </DropdownItem>
@@ -156,8 +139,8 @@ const Navbar = ({ profileImageURL }: { profileImageURL?: string }) => {
                         )}
                     </NavLinks>
                 </Nav>
-                <MobileIcon onClick={handleMobileClick}>
-                    <MobileIconLine isOpen={isMobileMenuOpen} />
+                <MobileIcon onClick={handleMobileNavIconClick}>
+                    <MobileIconLine isOpen={showMobileIcon} />
                 </MobileIcon>
             </NavbarInnerContainer>
         </NavbarContainer>

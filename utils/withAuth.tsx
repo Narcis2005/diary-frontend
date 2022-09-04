@@ -1,10 +1,9 @@
-import { NextComponentType } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Loader from "../components/Loader";
 import { useAppSelector } from "../redux/hooks";
 
-function withAuth<T>(Component: NextComponentType<T>) {
+function withAuth<T>(Component: React.ComponentType<any>) {
     const Auth = (props: T) => {
         const router = useRouter();
         const user = useAppSelector((state) => state.user);

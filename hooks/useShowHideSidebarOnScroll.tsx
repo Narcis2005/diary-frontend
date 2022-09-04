@@ -3,12 +3,11 @@ import useHideOnOutsideCall from "./useHideOnOutsideClick";
 
 const useShowHideSidebarOnScroll = (element: HTMLDivElement | null) => {
     const [lastScrollY, setLastScrollY] = useState(0);
-    const [show, setShow] = useState(true);
-    const clickShow = useHideOnOutsideCall(element);
+    const { showClick, setShowClick } = useHideOnOutsideCall(element);
     useEffect(() => {
         const controlSidebar = () => {
             if (typeof window !== "undefined") {
-                setShow(window.scrollY <= lastScrollY);
+                setShowClick(window.scrollY <= lastScrollY);
                 // remember current page location to use in the next move
                 setLastScrollY(window.scrollY);
             }
@@ -21,10 +20,7 @@ const useShowHideSidebarOnScroll = (element: HTMLDivElement | null) => {
             };
         }
     }, [lastScrollY]);
-    useEffect(() => {
-        setShow(clickShow);
-    }, [clickShow]);
-    return show;
+    return showClick;
 };
 
 export default useShowHideSidebarOnScroll;

@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 
 const useHideOnOutsideCall = (element: HTMLDivElement | null) => {
-    const [show, setShow] = useState(true);
-
+    const [show, setShow] = useState(false);
+    const setShowValue = (value: boolean) => {
+        setShow(value);
+    };
     useEffect(() => {
         const checkOutsideClick = (e: MouseEvent) => {
             if (element && !element.contains(e.target as Node)) {
+                console.log("click");
                 setShow(false);
             }
         };
@@ -14,7 +17,7 @@ const useHideOnOutsideCall = (element: HTMLDivElement | null) => {
             document.removeEventListener("mouseup", checkOutsideClick);
         };
     }, [element]);
-    return show;
+    return { showClick: show, setShowClick: setShowValue };
 };
 
 export default useHideOnOutsideCall;

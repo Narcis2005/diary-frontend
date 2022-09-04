@@ -1,15 +1,12 @@
 import { useEffect } from "react";
-import { useAppDispatch } from "../redux/hooks";
-import { getUserByToken } from "../redux/slices/auth";
+import useGetUser from "../hooks/useGetUser";
 
 const CheckUser = ({ children }: { children: React.ReactNode }) => {
-    const dispatch = useAppDispatch();
+    const getUser = useGetUser();
 
     useEffect(() => {
-        void dispatch(getUserByToken());
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        getUser();
+    }, [getUser]);
 
     return <>{children}</>;
 };

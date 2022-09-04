@@ -2,8 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import DefaultContainer from "../../../containers/DefaultContaienr";
-import { useAppDispatch } from "../../../redux/hooks";
-import { logoutUser } from "../../../redux/slices/auth";
+import useLogout from "../../../hooks/useLogout";
 import api from "../../../utils/api";
 import handleAxiosError from "../../../utils/handleAxiosError";
 interface IResult {
@@ -18,13 +17,13 @@ const ConfirmAccountRemoval = () => {
     const [callData, setCallData] = useState<IData>({ status: "idle", result: null, error: null });
     const router = useRouter();
     const token = router.query.token as string;
-    const dispatch = useAppDispatch();
+    const logout = useLogout();
     useEffect(() => {
         if (token) {
             api.delete<IResult>("/auth/delete", { data: { token: token } })
                 .then((res) => {
                     setCallData({ status: "succesfull", result: res.data, error: null });
-                    void dispatch(logoutUser());
+                    logout();
                 })
                 .catch((error: Error) => {
                     const err = handleAxiosError(error);

@@ -2,12 +2,11 @@ import { useState } from "react";
 import BackgroundImage from "../../components/BackgroundImage";
 import RegisterComponent from "../../components/RegisterComponent";
 import DefaultContainer from "../../containers/DefaultContaienr";
-import { useAppDispatch } from "../../redux/hooks";
-import { getUserByToken } from "../../redux/slices/auth";
 import api from "../../utils/api";
 import handleAxiosError from "../../utils/handleAxiosError";
 import withoutAuth from "../../utils/withoutAuth";
 import Head from "next/head";
+import useGetUser from "../../hooks/useGetUser";
 const Register = () => {
     const [data, setData] = useState({ username: "", password: "", email: "", fullName: "" });
     interface IResult {
@@ -22,14 +21,14 @@ const Register = () => {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData((prevData) => ({ ...prevData, [e.target.name]: e.target.value }));
     };
-    const dispatch = useAppDispatch();
+    const getUser = useGetUser();
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setRequestData({ status: "loading", result: null, error: null });
         api.post<IResult>("/auth/register", data)
             .then((res) => {
                 setRequestData({ status: "succesfull", result: res.data, error: null });
-                void dispatch(getUserByToken());
+                getUser();
             })
             .catch((error: Error) => {
                 const err = handleAxiosError(error);

@@ -2,8 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
-import { useAppDispatch } from "../../redux/hooks";
-import { getUserByToken, logoutUser } from "../../redux/slices/auth";
 import api from "../../utils/api";
 import handleAxiosError from "../../utils/handleAxiosError";
 import { Button, Input, Label, Message } from "../FormComponents";
@@ -26,6 +24,12 @@ import {
     ProfileLinkItem,
     ProfileLinksContainer,
 } from "./ProfileComponents";
+import updateProfile from "./helpers/updateProfile";
+import uploadImage from "./helpers/uploadImage";
+import downloadDiaryCall from "../JournalComponent/helpers/downloadDiary";
+import { IDiaryData, IResetPasswordData, IResetPasswordResult, IUserData } from "./interfaces";
+import useLogout from "../../hooks/useLogout";
+import useGetUser from "../../hooks/useGetUser";
 
 const ProfileComponent = ({
     imageURL,
@@ -40,12 +44,7 @@ const ProfileComponent = ({
 }) => {
     const [imageName, setImageName] = useState("No file choosen");
     const [file, setFile] = useState<File>();
-    interface IUserData {
-        username: string;
-        fullName: string;
-        email: string;
-        changesWereMade: boolean;
-    }
+
     const [userData, setUserData] = useState<IUserData>({
         username: username,
         fullName: fullName,
@@ -68,102 +67,62 @@ const ProfileComponent = ({
             setUserData((prevData) => ({ ...prevData, changesWereMade: true }));
         }
     };
-    const dispatch = useAppDispatch();
-    const Logout = () => {
-        void dispatch(logoutUser());
-    };
+    const Logout = useLogout();
+    const getUser = useGetUser();
     const [reqData, setReqData] = useState({ status: "idle", error: "" });
-    const onSubmit = (e: React.FormEvent) => {
+
+    const handleProfileSave = async (e: React.FormEvent) => {
         e.preventDefault();
         setReqData({ status: "loading", error: "" });
-        let photoRes;
-        if (file) {
-            const formData = new FormData();
-            formData.append("file", file);
-            api.post("/upload", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-                .then((data) => {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                    photoRes = data.data as string;
-                    api.put("/auth/update", {
-                        username: userData.username,
-                        email: userData.email,
-                        fullName: userData.fullName,
-                        imageName: photoRes,
-                    })
-                        .then(() => {
-                            setReqData({ status: "success", error: "" });
-                            void dispatch(getUserByToken());
-                        })
-                        .catch((error: Error) => {
-                            const err = handleAxiosError(error);
-                            if (err === "return") return;
-                            setReqData({ status: "failed", error: err });
-                        });
-                })
-                .catch((error: Error) => {
-                    const err = handleAxiosError(error);
-                    if (err === "return") return;
-                    setReqData({ status: "failed", error: err });
+        try {
+            if (file) {
+                const formData = new FormData();
+                formData.append("file", file);
+                const photoName = await uploadImage(formData);
+                await updateProfile({
+                    username: userData.username,
+                    email: userData.email,
+                    fullName: userData.fullName,
+                    imageName: photoName,
                 });
-        } else {
-            api.put("/auth/update", {
-                username: userData.username,
-                email: userData.email,
-                fullName: userData.fullName,
-            })
-                .then(() => {
-                    setReqData({ status: "success", error: "" });
-                    void dispatch(getUserByToken());
-                })
-                .catch((error: Error) => {
-                    const err = handleAxiosError(error);
-                    if (err === "return") return;
-                    setReqData({ status: "failed", error: err });
+            } else {
+                await updateProfile({
+                    username: userData.username,
+                    email: userData.email,
+                    fullName: userData.fullName,
                 });
+            }
+            setReqData({ status: "success", error: "" });
+            getUser();
+        } catch (error) {
+            const err = error as string;
+            setReqData({ status: "failed", error: err });
         }
     };
-
-    interface IDiaryData {
-        status: "idle" | "loading" | "succesfull" | "failed";
-        result: string | null;
-        error: string | null;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [diaryData, setDiaryData] = useState<IDiaryData>({ status: "idle", result: null, error: null });
-
     const getDiary = () => {
         setDiaryData({ status: "loading", result: null, error: null });
-        api.get("/diary/download", { responseType: "blob" })
+        downloadDiaryCall()
             .then((res) => {
                 fileDownload(new Blob([res.data]), "diary.pdf");
                 setDiaryData({ status: "succesfull", result: null, error: null });
             })
-            .catch((error: Error) => {
-                const err = handleAxiosError(error);
-                //handled by axios interceptor
-                if (err === "return") return;
-                setDiaryData({ status: "failed", result: null, error: err });
+            .catch((error: string) => {
+                setDiaryData({ status: "failed", result: null, error: error });
             });
     };
-    interface IResult {
-        message: string;
-    }
-    interface IData {
-        status: "idle" | "loading" | "succesfull" | "failed";
-        result: IResult | null;
-        error: string | null;
-    }
-    const [resetPasswordCall, setResetPasswordCall] = useState<IData>({ status: "idle", result: null, error: null });
+
+    const [resetPasswordCall, setResetPasswordCall] = useState<IResetPasswordData>({
+        status: "idle",
+        result: null,
+        error: null,
+    });
 
     const handleResetPasswordClick = (e: React.MouseEvent) => {
         e.preventDefault();
         if (resetPasswordCall.status === "idle") {
             setResetPasswordCall({ status: "loading", result: null, error: null });
-            api.post<IResult>("/auth/send-reset-password-email")
+            api.post<IResetPasswordResult>("/auth/send-reset-password-email")
                 .then((res) => {
                     setResetPasswordCall({ status: "succesfull", result: res.data, error: null });
                 })
@@ -221,7 +180,7 @@ const ProfileComponent = ({
                 <ProfileRightSide>
                     <ProfileSection>
                         <ProfileSectionTitle>Account details</ProfileSectionTitle>
-                        <ProfileForm onSubmit={onSubmit}>
+                        <ProfileForm onSubmit={handleProfileSave}>
                             <FormGroup>
                                 <LabelinputContainerProfile>
                                     <Label htmlFor="fullName">Full name</Label>
