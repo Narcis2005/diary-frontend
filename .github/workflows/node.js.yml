@@ -1,32 +1,31 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ "main" ]
+    push:
+        branches: ["main"]
 
 jobs:
-  build:
+    build:
+        runs-on: self-hosted
 
-    runs-on: self-hosted
+        strategy:
+            matrix:
+                node-version: [16.x]
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: install dependencies
-      run: npm ci
-#   - name: test the code
-#      run: npm test
-    - name: build the new image
-      run: docker build -t diary-frontend-docker .
-    - name: remove the previous container 
-      run: docker rm -f $(docker ps -a | grep diary-frontend-docker | cut -c1-10)
-    - name: run the new container
-      run: docker run -d -p 3000:3000 --name diary-frontend-docker diary-frontend-docker
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "npm"
+            - name: install dependencies
+              run: npm ci
+            #   - name: test the code
+            #      run: npm test
+            - name: build the new image
+              run: docker build -t diary-frontend-docker .
+            - name: remove the previous container
+              run: docker rm -f $(docker ps -a | grep diary-frontend-docker | cut -c1-10)
+            - name: run the new container
+              run: docker run -d -p 3000:3000 --network=host --name diary-frontend-docker diary-frontend-docker
