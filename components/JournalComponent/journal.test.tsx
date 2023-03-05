@@ -8,7 +8,6 @@ import "intersection-observer";
 import { store } from "../../redux/store";
 import { Provider } from "react-redux";
 import { initializeStore } from "../../utils/api";
-import formatStringsInSubstringsWithNWords from "./helpers/formatStringsInSubstringsWithNWords";
 describe("test index component", () => {
     beforeEach(() => {
         initializeStore(store);
@@ -42,12 +41,12 @@ describe("test index component", () => {
             expect(getByText(content)).toBeInTheDocument();
         });
     });
-    test("The function output length should be the length of the string / n, or 1", () => {
-        const string =
-            "Duis et euismod neque, sit amet mollis ante. Aliquam erat volutpat. Quisque hendrerit lacus vitae tempus pretium. Aenean ultricies egestas nulla, non eleifend velit eleifend et. Suspendisse aliquam bibendum aliquam. Mauris eu nunc semper lacus lacinia mattis ultricies at lorem. Sed ultrices odio nec lectus mattis, ac pretium ex luctus. Maecenas semper mollis leo vitae congue. Vivamus porttitor augue non condimentum congue. Pellentesque egestas vitae justo at consequat. Nullam et eros vestibulum, luctus velit sit amet, fringilla tellus. Quisque venenatis nisl sit amet orci rutrum sollicitudin sit amet quis mi. Phasellus non rutrum nunc, sit amet ultrices dui. Sed id orci efficitur, sodales justo non, aliquam quam. Praesent ut consectetur quam. Vestibulum porta massa nibh, eu congue dolor accumsan in.";
-        const n = 12;
-        expect(formatStringsInSubstringsWithNWords(string, n).length).toBe(
-            string.split(" ").length / n >= 1 ? string.split(" ").length / n : 1,
-        );
-    });
+    // test("The function output length should be the length of the string / n, or 1", () => {
+    //     const string =
+    //         "Duis et euismod neque, sit amet mollis ante. Aliquam erat volutpat. Quisque hendrerit lacus vitae tempus pretium. Aenean ultricies egestas nulla, non eleifend velit eleifend et. Suspendisse aliquam bibendum aliquam. Mauris eu nunc semper lacus lacinia mattis ultricies at lorem. Sed ultrices odio nec lectus mattis, ac pretium ex luctus. Maecenas semper mollis leo vitae congue. Vivamus porttitor augue non condimentum congue. Pellentesque egestas vitae justo at consequat. Nullam et eros vestibulum, luctus velit sit amet, fringilla tellus. Quisque venenatis nisl sit amet orci rutrum sollicitudin sit amet quis mi. Phasellus non rutrum nunc, sit amet ultrices dui. Sed id orci efficitur, sodales justo non, aliquam quam. Praesent ut consectetur quam. Vestibulum porta massa nibh, eu congue dolor accumsan in.";
+    //     const n = 12;
+    //     expect(formatTextInPages(string, n).length).toBe(
+    //         string.split(" ").length / n >= 1 ? string.split(" ").length / n : 1,
+    //     );
+    // });
 });

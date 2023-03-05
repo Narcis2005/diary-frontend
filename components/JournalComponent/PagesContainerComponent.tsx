@@ -1,8 +1,8 @@
+import React from "react";
 import { useState } from "react";
-import { WORDS_PER_PAGE } from ".";
 import ButtonsContainerComponent from "./ButtonsContainerComponent";
-import formatStringsInSubstringsWithNWords from "./helpers/formatStringsInSubstringsWithNWords";
 import formatTabInTextarea from "./helpers/formatTabInTextarea";
+import formatTextInPages from "./helpers/formatTextInPages";
 import { IDateByDate, IHandleTabIndent, IJournalComponent } from "./interfaces";
 import { PagesContainer } from "./JournalComponents";
 import PageComponent from "./PageComponent";
@@ -11,17 +11,23 @@ interface IPagesContainerComponent {
     currentPage: number;
     changePageOnScroll: (nr: number) => void;
     data: IJournalComponent[];
+    wordsPerPage: number;
+    isScrolling: boolean;
+    handleIsScrolling: (value: boolean) => void;
 }
 const PagesContainerComponent = ({
     isTodayANewDay,
     currentPage,
     changePageOnScroll,
     data,
+    wordsPerPage,
+    isScrolling,
+    handleIsScrolling,
 }: IPagesContainerComponent) => {
     const [dataByDate, setDataByDate] = useState<IDateByDate[]>(
         data.map((content) => {
             return {
-                content: formatStringsInSubstringsWithNWords(content.content, WORDS_PER_PAGE),
+                content: formatTextInPages(content.content, wordsPerPage),
                 date: content.date,
                 id: content.id,
                 changed: false,
@@ -74,6 +80,7 @@ const PagesContainerComponent = ({
                         ...newData,
                         changed: true,
                         content: newData.content.map((content) => {
+                            console.log(content.id);
                             if (content.id === index && e?.target) {
                                 return { ...content, content: e.target.value };
                             }
@@ -101,6 +108,8 @@ const PagesContainerComponent = ({
                         change={changePageOnScroll}
                         isNewPage={false}
                         handleTabIndent={handleTabIndent}
+                        isScrolling={isScrolling}
+                        handleIsScrolling={handleIsScrolling}
                     />
                 ));
             })}
@@ -116,6 +125,8 @@ const PagesContainerComponent = ({
                     change={changePageOnScroll}
                     isNewPage={true}
                     placeholder="Write what you did today in your today page!"
+                    isScrolling={isScrolling}
+                    handleIsScrolling={handleIsScrolling}
                 />
             )}
             <ButtonsContainerComponent dataByDate={dataByDate} newPageData={newPageData} />
@@ -123,4 +134,4 @@ const PagesContainerComponent = ({
     );
 };
 
-export default PagesContainerComponent;
+export default React.memo(PagesContainerComponent);

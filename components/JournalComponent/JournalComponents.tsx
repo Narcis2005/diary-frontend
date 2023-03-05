@@ -67,7 +67,7 @@ export const PageContainer = styled.div`
     overflow-x: hidden;
 `;
 export const TextAreaContainer = styled.div`
-    height: 88%;
+    height: 85%;
 `;
 export const Page = styled.textarea`
     /* max-height: 1000vh; */
@@ -109,7 +109,7 @@ export const SmallIndicativePageContainer = styled.div`
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     position: relative;
     @media (max-width: 1200px) {
         height: 100px;
@@ -125,15 +125,18 @@ export const IndicativePageForm = styled.form`
     }
 `;
 export const SmallIndicativePageBackground = styled.input`
-    width: 50%;
+    width: 100%;
     height: 70%;
-    background: linear-gradient(to bottom, white 9px, black 1px);
-    background-size: 100% 10px;
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 2;
+    margin: 15% 0;
+    top: 0;
+    left: 0;
+    /* background: linear-gradient(to bottom, white 9px, black 1px);
+    background-size: 100% 10px; */
+    /* margin-bottom: 20px; */
     transform-style: preserve-3d;
     appearance: none;
+    position: absolute;
+    z-index: 1;
     &::after {
         content: "";
         position: absolute;
@@ -152,14 +155,18 @@ export const SmallIndicativePageBackground = styled.input`
         border-radius: 5px;
     }
     @media (max-width: 960px) {
-        margin: 0 1rem 20px 1rem;
-        width: 3rem;
+        margin: 0 0rem 50px 0rem;
+        width: 80px;
+        height: 60px;
     }
 `;
 
 export const SmallIndicativePageNumber = styled.p`
     font-size: 20px;
     font-weight: 700;
+    @media (max-width: 960px) {
+        margin-top: 10px;
+    }
 `;
 
 export const SavebuttonContainer = styled.div`
@@ -186,5 +193,26 @@ export const DownloadButton = styled(Button)`
     border: solid 1px black;
     &:hover {
         background: rgb(230, 230, 230);
+    }
+`;
+export const SmallIndicativePageLabel = styled.label`
+    position: absolute;
+    z-index: 2;
+    color: black;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    @media (max-width: 960px) {
+        width: 80px;
+        transform: translate(0, -50%);
+    }
+`;
+export const SmallIndicativePageInputLabelContainer = styled.div`
+    width: 60%;
+    height: 100%;
+    position: relative;
+    @media (max-width: 960px) {
+        margin: 0 3.5rem;
+        width: 80%;
     }
 `;

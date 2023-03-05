@@ -25,6 +25,8 @@ export interface IPageComponent {
     numberOfPage: number;
     isNewPage: boolean;
     placeholder?: string;
+    isScrolling: boolean;
+    handleIsScrolling: (value: boolean) => void;
 }
 // eslint-disable-next-line react/display-name
 const PageComponent = ({
@@ -38,6 +40,8 @@ const PageComponent = ({
     isNewPage,
     placeholder,
     handleTabIndent,
+    isScrolling,
+    handleIsScrolling,
 }: IPageComponent) => {
     const { ref, inView } = useInView({ threshold: 0.5 });
     const pageNumberRef = useRef<HTMLDivElement>(null);
@@ -68,13 +72,22 @@ const PageComponent = ({
     const containerRef = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
     useEffect(() => {
         if (currentPage === numberOfPage && inView === false) {
-            containerRef.current?.scrollIntoView({ behavior: "smooth" });
+            window.scroll({
+                top: containerRef.current?.offsetTop,
+                behavior: "smooth",
+            });
+            // containerRef.current?.scrollIntoView({ behavior: "smooth" });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
     useEffect(() => {
         if (inView === true) {
-            change(numberOfPage);
+            if (!isScrolling) {
+                change(numberOfPage);
+            }
+            if (currentPage === numberOfPage) {
+                handleIsScrolling(false);
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inView]);
@@ -127,4 +140,4 @@ const PageComponent = ({
         </PageContainer>
     );
 };
-export default React.memo(PageComponent);
+export default PageComponent;
